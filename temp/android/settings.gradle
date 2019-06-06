@@ -1,0 +1,3 @@
+rootProject.name = 'temp'
+
+include ':app'
