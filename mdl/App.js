@@ -11,6 +11,7 @@ import {Platform, StyleSheet, Text, View, PixelRatio, TouchableOpacity, Image} f
 import FetchLocation from './components/FetchLocation';
 
 import FilePickerManager from 'react-native-file-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 
 // type Props = {};
 // export default class App extends Component<Props> {
@@ -47,9 +48,11 @@ export default class App extends React.Component {
       else {
         this.setState({
           file: response,
-          txt: response.data
+          txt: response.uri
         });
         console.log('hey',this.state.file)
+        console.log('txt?',this.state.txt)
+        
       }
     });
   }
