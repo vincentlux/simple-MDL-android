@@ -28,6 +28,33 @@ export default class App extends React.Component {
     }, err => console.log(err));
   }
 
+  uploadText = () =>{
+    console.log('upload!')
+    
+    RNFetchBlob.fs.readFile(this.state.file.path, 'utf8')
+    .then((data) => {
+      console.log('wow')
+      console.log(data)
+      RNFetchBlob.config({
+        trusty : true
+      })
+      .fetch('POST', 'https://mdl.unc.edu/api/upload_file_rn', {
+        'Content-Type' : 'multipart/form-data',
+      }, [
+        // element with property `filename` will be transformed into `file` in form data
+        { name : 'text', data: data},
+  
+      ]).then((resp) => {
+        // ...
+        console.log(resp)
+      }).catch((err) => {
+        console.log(err)
+      })
+    })
+
+
+  }
+
   selectFileTapped = () => {
     const options = {
       title: 'File Picker',
@@ -51,6 +78,7 @@ export default class App extends React.Component {
           txt: response.uri
         });
         console.log('hey',this.state.file)
+        console.log(this.state.file.path)
         console.log('txt?',this.state.txt)
         
       }
@@ -61,11 +89,13 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={this.selectFileTapped.bind(this)}>
-              <Text>Choose file...</Text>
-            </TouchableOpacity>
-          <Text style={styles.fileInfo}>{JSON.stringify(this.state.file)}</Text>
+              <Text style={styles.text}>Choose file...</Text>
+        </TouchableOpacity>
+        <Text style={styles.fileInfo}>{JSON.stringify(this.state.file)}</Text>
         <FetchLocation onGetLocation={this.getUserLocationHandler} />
-
+        <TouchableOpacity onPress={this.uploadText}>
+          <Text>Upload</Text>
+        </TouchableOpacity>
         <Text style={styles.welcome}>Welcome React Native!!!</Text>
         <Text style={styles.instructions}>To get start, edit App.js!</Text>
       </View>
@@ -89,6 +119,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  text: {
+    color: '#fff'
   },
   button: {
     // borderColor: '#9B9B9B',
