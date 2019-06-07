@@ -9,6 +9,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, PixelRatio, TouchableOpacity, Image} from 'react-native';
 import FetchLocation from './components/FetchLocation';
+import UploadArchive from './components/UploadArchive';
 
 import FilePickerManager from 'react-native-file-picker';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -29,29 +30,23 @@ export default class App extends React.Component {
   }
 
   uploadText = () =>{
-    console.log('upload!')
-    
-    RNFetchBlob.fs.readFile(this.state.file.path, 'utf8')
-    .then((data) => {
-      console.log('wow')
-      console.log(data)
-      RNFetchBlob.config({
-        trusty : true
-      })
-      .fetch('POST', 'https://mdl.unc.edu/api/upload_file_rn', {
-        'Content-Type' : 'multipart/form-data',
-      }, [
-        // element with property `filename` will be transformed into `file` in form data
-        { name : 'text', data: data},
-  
-      ]).then((resp) => {
-        // ...
-        console.log(resp)
-      }).catch((err) => {
-        console.log(err)
-      })
-    })
+    console.log('uploading')
 
+    RNFetchBlob.config({
+      trusty : true
+    })
+    .fetch('POST', 'https://mdl.unc.edu/api/upload_file_rn', {
+      'Content-Type' : 'multipart/form-data',
+    }, [
+      { name : 'name', data : 'user'},
+      // element with property `filename` will be transformed into `file` in form data
+      { name : 'file', filename: this.state.fileName, type:'text/*', data: RNFetchBlob.wrap(this.state.txt)},
+    ]).then((resp) => {
+      console.log('uploaded')
+      console.log(resp)
+    }).catch((err) => {
+      console.log(err)
+    })
 
   }
 
@@ -75,10 +70,11 @@ export default class App extends React.Component {
       else {
         this.setState({
           file: response,
-          txt: response.uri
+          txt: response.uri,
+          fileName: response.path.replace(/\//g, '_')
         });
         console.log('hey',this.state.file)
-        console.log(this.state.file.path)
+        console.log(this.state.file.path.replace(/\//g, '_'))
         console.log('txt?',this.state.txt)
         
       }
@@ -91,13 +87,9 @@ export default class App extends React.Component {
         <TouchableOpacity style={styles.button} onPress={this.selectFileTapped.bind(this)}>
               <Text style={styles.text}>Choose file...</Text>
         </TouchableOpacity>
-        <Text style={styles.fileInfo}>{JSON.stringify(this.state.file)}</Text>
-        <FetchLocation onGetLocation={this.getUserLocationHandler} />
-        <TouchableOpacity onPress={this.uploadText}>
-          <Text>Upload</Text>
-        </TouchableOpacity>
-        <Text style={styles.welcome}>Welcome React Native!!!</Text>
-        <Text style={styles.instructions}>To get start, edit App.js!</Text>
+        {/*<Text style={styles.fileInfo}>{JSON.stringify(this.state.file)}</Text>*/}
+        {/*<FetchLocation onGetLocation={this.getUserLocationHandler} />*/}
+        <UploadArchive onUploadArchive={this.uploadText}/>
       </View>
     );
   }
@@ -121,7 +113,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   text: {
-    color: '#fff'
+    color: '#fff',
+    fontSize: 20,
   },
   button: {
     // borderColor: '#9B9B9B',
