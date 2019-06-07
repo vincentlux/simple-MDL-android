@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, PixelRatio, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, PixelRatio, TouchableOpacity, Image} from 'react-native';
 import FetchLocation from './components/FetchLocation';
 
 import FilePickerManager from 'react-native-file-picker';
@@ -17,7 +17,8 @@ import FilePickerManager from 'react-native-file-picker';
 export default class App extends React.Component {
 
   state = {
-      file: undefined
+      file: undefined,
+      txt: undefined
   };
 
   getUserLocationHandler = () => {
@@ -45,7 +46,8 @@ export default class App extends React.Component {
       }
       else {
         this.setState({
-          file: response
+          file: response,
+          txt: response.data
         });
         console.log('hey',this.state.file)
       }
@@ -59,7 +61,6 @@ export default class App extends React.Component {
               <Text>Choose file...</Text>
             </TouchableOpacity>
           <Text style={styles.fileInfo}>{JSON.stringify(this.state.file)}</Text>
-    
         <FetchLocation onGetLocation={this.getUserLocationHandler} />
 
         <Text style={styles.welcome}>Welcome React Native!!!</Text>
@@ -87,10 +88,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   button: {
-    borderColor: '#9B9B9B',
+    // borderColor: '#9B9B9B',
     borderWidth: 1 / PixelRatio.get(),
-	margin: 5,
-	padding: 5
+    backgroundColor: '#8543e8',
+    margin: 10,
+    padding: 10
   },
   fileInfo: {
     borderColor: '#9B9B9B',
