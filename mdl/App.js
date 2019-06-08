@@ -71,7 +71,7 @@ export default class App extends React.Component {
         this.setState({
           file: response,
           txt: response.uri,
-          fileName: response.path.replace(/\//g, '_')
+          fileName: response.path.replace(/\//g, '_') // convert all / to _
         });
         console.log('hey',this.state.file)
         console.log(this.state.file.path.replace(/\//g, '_'))
