@@ -9,6 +9,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.filepicker.FilePickerPackage; // import package
 import com.RNFetchBlob.RNFetchBlobPackage;    
+import com.wenkesj.voice.VoicePackage;
 
 import java.util.Arrays;
 import java.util.List; 
@@ -38,7 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
             new FilePickerPackage(),
-            new RNFetchBlobPackage()
+            new RNFetchBlobPackage(),
+            new VoicePackage()
         );
     }
   };
