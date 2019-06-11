@@ -111,6 +111,7 @@ export default class App extends React.Component {
     onSpeechStart = e => {
       // eslint-disable-next-line
       console.log('onSpeechStart: ', e);
+      console.log('what?')
       this.setState({
         started: '√',
       });
@@ -176,7 +177,11 @@ export default class App extends React.Component {
       });
   
       try {
-        await Voice.start('en-US');
+        await Voice.start('en-US', {
+          "RECOGNIZER_ENGINE": "GOOGLE",
+          "EXTRA_PARTIAL_RESULTS": true
+        });
+        // await Voice.start('zh-CN');
       } catch (e) {
         //eslint-disable-next-line
         console.error(e);
@@ -232,7 +237,7 @@ export default class App extends React.Component {
 
 
 
-        <Text style={styles.welcome}>Welcome to React Native Voice!</Text>
+        <Text style={styles.welcome}>Welcome to React Native Voice</Text>
         <Text style={styles.instructions}>Press the button and start speaking.</Text>
         <Text style={styles.stat}>{`Started: ${this.state.started}`}</Text>
         <Text style={styles.stat}>{`Recognized: ${this.state.recognized}`}</Text>
