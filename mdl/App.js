@@ -55,7 +55,6 @@ export default class App extends React.Component {
     }).catch((err) => {
       console.log(err)
     })
-
   }
 
   selectFileTapped = () => {
@@ -229,7 +228,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={this.selectFileTapped.bind(this)}>
-              <Text style={styles.text}>Choose file...</Text>
+              <Text style={styles.text}>Choose file..</Text>
         </TouchableOpacity>
         {/*<Text style={styles.fileInfo}>{JSON.stringify(this.state.file)}</Text>*/}
         {/*<FetchLocation onGetLocation={this.getUserLocationHandler} />*/}
@@ -237,11 +236,11 @@ export default class App extends React.Component {
 
 
 
-        <Text style={styles.welcome}>Welcome to React Native Voice</Text>
-        <Text style={styles.instructions}>Press the button and start speaking.</Text>
+        {/*<Text style={styles.welcome}>Welcome to React Native Voice</Text>*/}
+        <Text style={styles.instructions}>Press the button and start speaking</Text>
         <Text style={styles.stat}>{`Started: ${this.state.started}`}</Text>
         <Text style={styles.stat}>{`Recognized: ${this.state.recognized}`}</Text>
-        <Text style={styles.stat}>{`Pitch: ${this.state.pitch}`}</Text>
+        {/*<Text style={styles.stat}>{`Pitch: ${this.state.pitch}`}</Text>*/}
         <Text style={styles.stat}>{`Error: ${this.state.error}`}</Text>
         <Text style={styles.stat}>Results</Text>
         {this.state.results.map((result, index) => {
@@ -251,14 +250,14 @@ export default class App extends React.Component {
             </Text>
           );
         })}
-        <Text style={styles.stat}>Partial Results</Text>
+        {/*<Text style={styles.stat}>Partial Results</Text>
         {this.state.partialResults.map((result, index) => {
           return (
             <Text key={`partial-result-${index}`} style={styles.stat}>
               {result}
             </Text>
           );
-        })}
+        })}*/}
         <Text style={styles.stat}>{`End: ${this.state.end}`}</Text>
         <TouchableHighlight onPress={this._startRecognizing}>
           <Image style={styles.voicebutton} source={require('./button.png')} />

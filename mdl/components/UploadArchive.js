@@ -1,5 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, StyleSheet, Button, TouchableOpacity, PixelRatio } from 'react-native';
+
+// class uploadArchive extends Component {
+
+
+// };
+
+
+
+
 
 const uploadArchive = props => {
     return (
