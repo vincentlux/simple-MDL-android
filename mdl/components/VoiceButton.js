@@ -149,12 +149,12 @@ constructor(props) {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.instructions}>Press the button and start speaking.</Text>
+        {/*<Text style={styles.instructions}>Press the button and start speaking.</Text>
         <Text style={styles.stat}>{`Started: ${this.state.started}`}</Text>
         <Text style={styles.stat}>{`Recognized: ${this.state.recognized}`}</Text>
         <Text style={styles.stat}>{`Pitch: ${this.state.pitch}`}</Text>
         <Text style={styles.stat}>{`Error: ${this.state.error}`}</Text>
-        <Text style={styles.stat}>Results</Text>
+    <Text style={styles.stat}>Results</Text>*/}
         {this.state.results.map((result, index) => {
             if(index==0)
                 return (
@@ -164,11 +164,11 @@ constructor(props) {
                 );
         })}
 
-        <Text style={styles.stat}>{`End: ${this.state.end}`}</Text>
+        {/*<Text style={styles.stat}>{`End: ${this.state.end}`}</Text>*/}
         <TouchableHighlight onPress={this._startRecognizing}>
           <Image style={styles.button} source={require('../assets/images/button.png')} />
         </TouchableHighlight>
-        <TouchableHighlight onPress={this._stopRecognizing}>
+        {/*<TouchableHighlight onPress={this._stopRecognizing}>
           <Text style={styles.action}>Stop Recognizing</Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={this._cancelRecognizing}>
@@ -176,7 +176,7 @@ constructor(props) {
         </TouchableHighlight>
         <TouchableHighlight onPress={this._destroyRecognizer}>
           <Text style={styles.action}>Destroy</Text>
-        </TouchableHighlight>
+      </TouchableHighlight>*/}
       </View>
     );
   }
