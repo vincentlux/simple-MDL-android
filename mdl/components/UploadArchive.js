@@ -6,6 +6,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 class UploadArchive extends Component {
     state = {
+        showFileName: false,
         file: undefined,
         txt: undefined,
     };
@@ -56,24 +57,42 @@ class UploadArchive extends Component {
           this.setState({
             file: response,
             txt: response.uri,
-            fileName: response.path.replace(/\//g, '_') // convert all / to _
+            fileName: response.path.replace(/\//g, '_'), // convert all / to _
+            showFileName: !this.state.showFileName
           });
           console.log('hey',this.state.file)
           console.log(this.state.file.path.replace(/\//g, '_'))
           console.log('txt?',this.state.txt)
-          
         }
       });
     }
+
+    _renderFileName = () => {
+      console.log(this.state.showFileName)
+      if (this.state.showFileName) {
+        console.log('omg')
+        return (
+                <View>
+                    <Text style={styles.textBlack}>{this.state.file.path}</Text>
+                </View>
+        );
+      } else {
+        return null;
+      }
+    }
+
+
+
     render() {
         return (
           <View style={styles.container}>
+            {this._renderFileName()}
             <TouchableOpacity style={styles.button} onPress={this.selectFileTapped.bind(this)}>
                   <Text style={styles.text}>Choose file..</Text>
             </TouchableOpacity>
             {/*<Text style={styles.fileInfo}>{JSON.stringify(this.state.file)}</Text>*/}
             {/*<FetchLocation onGetLocation={this.getUserLocationHandler} />*/}
-            <TouchableOpacity style={styles.button} onPress={this.onUploadArchive}>
+            <TouchableOpacity style={styles.button} onPress={this.uploadText}>
                 <Text style={styles.text} >Upload!</Text>
             </TouchableOpacity>
     
@@ -87,15 +106,15 @@ class UploadArchive extends Component {
 
 
 
-const uploadArchive = props => {
-    return (
-        // <Button title="Upload" onPress={props.onGetLocation} />
-        <TouchableOpacity style={styles.button} onPress={props.onUploadArchive}>
-            <Text style={styles.text}  >Upload!</Text>
-        </TouchableOpacity>
-    );
+// const uploadArchive = props => {
+//     return (
+//         // <Button title="Upload" onPress={props.onGetLocation} />
+//         <TouchableOpacity style={styles.button} onPress={props.onUploadArchive}>
+//             <Text style={styles.text}  >Upload!</Text>
+//         </TouchableOpacity>
+//     );
 
-};
+// };
 
 
 
@@ -104,7 +123,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        // backgroundColor: '#F5FCFF',
       },
       welcome: {
         fontSize: 20,
@@ -113,6 +132,10 @@ const styles = StyleSheet.create({
       },
       text: {
         color: '#fff',
+        fontSize: 20,
+      },
+      textBlack: {
+        color: '#000000',
         fontSize: 20,
       },
       button: {

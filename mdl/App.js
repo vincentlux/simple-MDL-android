@@ -7,22 +7,101 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, PixelRatio, TouchableOpacity, TouchableHighlight, Image} from 'react-native';
-import FetchLocation from './components/FetchLocation';
+import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight} from 'react-native';
 import UploadArchive from './components/UploadArchive';
 import VoiceButton from './components/VoiceButton';
+import { createAppContainer, createBottomTabNavigator } from "react-navigation";
+
+// export default class App extends React.Component {
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <UploadArchive/>
+//         <VoiceButton/>
+
+//       </View>
+//     );
+//   }
+// }
 
 
-export default class App extends React.Component {
-
+class HomeScreen extends React.Component {
+  static navigationOptions = { header: null };
   render() {
+    const { navigation } = this.props;
+    const fileName = navigation.getParam('fileName', 'nan');
+    const success = navigation.getParam('success', false);
+
+
     return (
       <View style={styles.container}>
-        <UploadArchive/>
+        <Text>Home Screen</Text>
+        <Text>file: {JSON.stringify(fileName)}</Text>
+        <Text>success: {JSON.stringify(success)}</Text>
         <VoiceButton/>
+        <Button
+          title="Go to Upload"
+          onPress={() => this.props.navigation.navigate('Upload')}
+        />
 
       </View>
     );
+  }
+}
+
+
+
+class UploadScreen extends React.Component {
+  static navigationOptions = { header: null };
+
+  
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Details Screen</Text>
+        <UploadArchive/>
+        <Button
+          title="Go to Home"
+          onPress={() => this.props.navigation.navigate('MDL', {
+            fileName: '.mbox',
+            success: true,
+          })}
+        />
+      </View>
+    );
+  }
+}
+
+
+class HelpPage extends React.Component {
+  static navigationOptions = { header: null };
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Help placeholder</Text>
+      </View>
+    );
+  }
+}
+
+
+
+const RootStack = createBottomTabNavigator({
+  MDL: HomeScreen,
+  Upload: UploadScreen,
+  Help: HelpPage
+},
+{
+  initialRouteName: "MDL"
+}
+);
+
+const AppContainer = createAppContainer(RootStack);
+
+// initiate as always
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
   }
 }
 
@@ -31,32 +110,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  text: {
-    color: '#fff',
-    fontSize: 20,
-  },
-  test: {
-    color: '#0b45a3',
-    fontSize: 20,
-  },
-  button: {
-    // borderColor: '#9B9B9B',
-    borderWidth: 1 / PixelRatio.get(),
-    backgroundColor: '#8543e8',
-    margin: 10,
-    padding: 10
-  },
-  fileInfo: {
-    borderColor: '#9B9B9B',
-    borderWidth: 1 / PixelRatio.get(),
-	margin: 5,
-	padding: 5
+    // backgroundColor: '#F5FCFF',
   },
 });
+
+
