@@ -29,7 +29,7 @@ class HomeScreen extends React.Component {
   static navigationOptions = { header: null };
   render() {
     const { navigation } = this.props;
-    const fileName = navigation.getParam('fileName', 'nan');
+    const fileName = navigation.getParam('fileName', 'Enron Dataset');
     const success = navigation.getParam('success', false);
 
 
@@ -38,11 +38,8 @@ class HomeScreen extends React.Component {
         <Text>Home Screen</Text>
         <Text>file: {JSON.stringify(fileName)}</Text>
         <Text>success: {JSON.stringify(success)}</Text>
+        <Text style={styles.title}> Simple-MDL Search </Text>
         <VoiceButton/>
-        <Button
-          title="Go to Upload"
-          onPress={() => this.props.navigation.navigate('Upload')}
-        />
 
       </View>
     );
@@ -54,16 +51,15 @@ class HomeScreen extends React.Component {
 class UploadScreen extends React.Component {
   static navigationOptions = { header: null };
 
-  
   render() {
     return (
       <View style={styles.container}>
         <Text>Details Screen</Text>
-        <UploadArchive/>
+        <UploadArchive ref='UploadArchive' />
         <Button
-          title="Go to Home"
+          title="Apply"
           onPress={() => this.props.navigation.navigate('MDL', {
-            fileName: '.mbox',
+            fileName: this.refs.UploadArchive.state.fileName,
             success: true,
           })}
         />
@@ -111,6 +107,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: '#F5FCFF',
+  },
+  title: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
   },
 });
 

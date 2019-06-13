@@ -5,17 +5,22 @@ import FilePickerManager from 'react-native-file-picker';
 import RNFetchBlob from 'rn-fetch-blob';
 
 class UploadArchive extends Component {
-    state = {
-        showFileName: false,
-        file: undefined,
-        txt: undefined,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      fileName: 'Enron Dataset', // default
+      showFileName: false,
+      file: undefined,
+      txt: undefined,
     };
+  }
+    // state = {
+    //     showFileName: false,
+    //     file: undefined,
+    //     txt: undefined,
+    // };
   
-    // getUserLocationHandler = () => {
-    //   navigator.geolocation.getCurrentPosition(position => {
-    //     console.log(position);
-    //   }, err => console.log(err));
-    // }
   
     uploadText = () =>{
       console.log('uploading')
@@ -31,6 +36,7 @@ class UploadArchive extends Component {
       ]).then((resp) => {
         console.log('uploaded')
         console.log(resp)
+        console.log('set State here')
       }).catch((err) => {
         console.log(err)
       })
@@ -70,7 +76,7 @@ class UploadArchive extends Component {
     _renderFileName = () => {
       console.log(this.state.showFileName)
       if (this.state.showFileName) {
-        console.log('omg')
+        console.log(this.state.fileName)
         return (
                 <View>
                     <Text style={styles.textBlack}>{this.state.file.path}</Text>
