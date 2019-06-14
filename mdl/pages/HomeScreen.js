@@ -8,7 +8,7 @@ import VoiceButton from '../components/VoiceButton';
 class HomeScreen extends React.Component {
     static navigationOptions = { header: null };
     state = {
-        search: 'sddd',
+        search: '',
     };
 
     componentWillMount() {
@@ -18,13 +18,13 @@ class HomeScreen extends React.Component {
     updateSearch = search => {
         this.setState({ search:search });
         console.log(this.state.search)
-        console.log(this.refs.VoiceButton.state.speechRes)
+        // console.log(this.refs.VoiceButton.state.speechRes)
 
     };
 
     componentDidMount() {
-
-          
+        console.log('home mounted')
+        // console.log(this.refs.VoiceButton.state.speechRes)
     }
 
 
@@ -48,14 +48,15 @@ class HomeScreen extends React.Component {
                 platform='android'
                 inputStyle={{backgroundColor: 'white'}}
                 containerStyle={{backgroundColor: 'white', borderWidth: 1, borderRadius: 5}}
-                placeholder='Try "Last email Michael"'
+                placeholder='Try "Last 1 email Michael"'
                 onChangeText={this.updateSearch}
                 lightTheme
                 value={this.state.search}
                 />
                 </View>
 
-            <VoiceButton ref='VoiceButton'/>
+            {/*<VoiceButton ref='VoiceButton'/>*/}
+            <VoiceButton HomeScreen={this}/>
     
             </View>
         );

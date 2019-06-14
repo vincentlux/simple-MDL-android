@@ -12,13 +12,15 @@ class VoiceButton extends Component {
     started: '',
     results: [],
     partialResults: [],
+    speechRes: 'lol'
   };
 
 
 
 constructor(props) {
     super(props);
-    speechRes: 'lol';
+    // speechRes: 'lol';
+    // a = props.onUpdateSearch;
     Voice.onSpeechStart = this.onSpeechStart;
     Voice.onSpeechRecognized = this.onSpeechRecognized;
     Voice.onSpeechEnd = this.onSpeechEnd;
@@ -69,6 +71,8 @@ constructor(props) {
       speechRes: e.value[0],
     });
     console.log(this.state.speechRes)
+    // update textbox
+    this.props.HomeScreen.updateSearch(this.state.speechRes)
 
   };
 
@@ -157,7 +161,8 @@ constructor(props) {
         <Text style={styles.stat}>{`Recognized: ${this.state.recognized}`}</Text>
         <Text style={styles.stat}>{`Pitch: ${this.state.pitch}`}</Text>
         <Text style={styles.stat}>{`Error: ${this.state.error}`}</Text>
-    <Text style={styles.stat}>Results</Text>*/}
+    <Text style={styles.stat}>Results</Text>
+    
         {this.state.results.map((result, index) => {
             if(index==0)
                 return (
@@ -165,7 +170,7 @@ constructor(props) {
                     {result}
                     </Text>
                 );
-        })}
+        })}*/}
 
         {/*<Text style={styles.stat}>{`End: ${this.state.end}`}</Text>*/}
         <TouchableHighlight onPress={this._startRecognizing}>
