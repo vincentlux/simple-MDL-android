@@ -18,6 +18,7 @@ class VoiceButton extends Component {
 
 constructor(props) {
     super(props);
+    speechRes: 'lol';
     Voice.onSpeechStart = this.onSpeechStart;
     Voice.onSpeechRecognized = this.onSpeechRecognized;
     Voice.onSpeechEnd = this.onSpeechEnd;
@@ -32,24 +33,20 @@ constructor(props) {
   }
 
   onSpeechStart = e => {
-    // eslint-disable-next-line
-    console.log('onSpeechStart: ', e);
-    console.log('what?')
+    // console.log('onSpeechStart: ', e);
     this.setState({
       started: '√',
     });
   };
 
   onSpeechRecognized = e => {
-    // eslint-disable-next-line
-    console.log('onSpeechRecognized: ', e);
+    // console.log('onSpeechRecognized: ', e);
     this.setState({
       recognized: '√',
     });
   };
 
   onSpeechEnd = e => {
-    // eslint-disable-next-line
     console.log('onSpeechEnd: ', e);
     this.setState({
       end: '√',
@@ -57,7 +54,6 @@ constructor(props) {
   };
 
   onSpeechError = e => {
-    // eslint-disable-next-line
     console.log('onSpeechError: ', e);
     this.setState({
       error: JSON.stringify(e.error),
@@ -65,24 +61,30 @@ constructor(props) {
   };
 
   onSpeechResults = e => {
-    // eslint-disable-next-line
-    console.log('onSpeechResults: ', e);
+    // set speechRes here and send to HomeScreeen box
+    // console.log('onSpeechResults: ', e);
+    // console.log(e.value[0])
     this.setState({
       results: e.value,
+      speechRes: e.value[0],
     });
+    console.log(this.state.speechRes)
+
   };
 
+
+  
+
+
   onSpeechPartialResults = e => {
-    // eslint-disable-next-line
-    console.log('onSpeechPartialResults: ', e);
+    // console.log('onSpeechPartialResults: ', e);
     this.setState({
       partialResults: e.value,
     });
   };
 
   onSpeechVolumeChanged = e => {
-    // eslint-disable-next-line
-    console.log('onSpeechVolumeChanged: ', e);
+    // console.log('onSpeechVolumeChanged: ', e);
     this.setState({
       pitch: e.value,
     });
@@ -114,6 +116,7 @@ constructor(props) {
   _stopRecognizing = async () => {
     try {
       await Voice.stop();
+      console.log('stopped')
     } catch (e) {
       //eslint-disable-next-line
       console.error(e);
