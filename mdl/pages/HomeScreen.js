@@ -4,8 +4,9 @@ import { SearchBar } from 'react-native-elements';
 import RNFetchBlob from 'rn-fetch-blob';
 
 import VoiceButton from '../components/VoiceButton';
-import ConfirmButton from '../components/ConfirmButton';
-import CancelButton from '../components/CancelButton';
+import EmailSectionList from '../components/EmailSectionList';
+// import ConfirmButton from '../components/ConfirmButton';
+// import CancelButton from '../components/CancelButton';
 
 
 class HomeScreen extends React.Component {
@@ -31,6 +32,26 @@ class HomeScreen extends React.Component {
         console.log('time to search!')
     };
 
+    // getEmail = () =>{
+    //     console.log(this.state.search)
+    //     console.log(this.state.fileName)
+    //     // call simple here to search
+    //     const query = {'query': this.state.search}
+    //     RNFetchBlob.config({
+    //       trusty : true
+    //     })
+    //     .fetch('POST', 'https://mdl.unc.edu/api/simple_rn', {
+    //       'Content-Type' : 'application/json',
+    //     }, JSON.stringify(query)).then((res) => {
+    //     //   console.log(res.json())
+        
+    //       this.setState({
+    //         emailJson:res.json() 
+    //       }, ()=>this.setState({sectionListReady: true})) // set ready here? => let SectionList fetch all res through props
+    //     }).catch((err) => {
+    //       console.log(err)
+    //     })
+    // }
 
     getEmail = () =>{
         console.log(this.state.search)
@@ -40,23 +61,27 @@ class HomeScreen extends React.Component {
         RNFetchBlob.config({
           trusty : true
         })
-        .fetch('POST', 'https://mdl.unc.edu/api/simple', {
+        .fetch('POST', 'https://mdl.unc.edu/api/simple_rn', {
           'Content-Type' : 'application/json',
-        }, JSON.stringify(query)).then((res) => {
-          console.log(res.json())
-          this.setState({
-            emailJson:res.json() 
-          }, ()=>this.setState({sectionListReady: true})) // set ready here? => let SectionList fetch all res through props
-        }).catch((err) => {
+        }, JSON.stringify(query)).then((r) => r.json())
+        .then(r => {
+            const emailForSection = r.reduce((r,s) =>{
+                r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
+                return r;
+            }, []);
+            this.setState({emailJson: emailForSection}, ()=>this.setState({sectionListReady: true}))
+            console.log(this.state.sectionListReady)
+        })
+        .catch((err) => {
           console.log(err)
         })
-
     }
+
 
     _renderSectionList = () =>{
         if(this.state.sectionListReady){
             // change to email sectionlist
-            return <Text>{JSON.stringify(this.state.emailJson)}</Text>;
+            return <EmailSectionList HomeScreen={this}/>;
         }
         else{
             return null;
@@ -96,15 +121,11 @@ class HomeScreen extends React.Component {
                     flexDirection: 'row',
                     justifyContent: 'space-around',
                   }}>
-                  <View>
-                    <CancelButton/>
-                  </View>
+
                   <View>
                     <VoiceButton HomeScreen={this}/>
                   </View>
-                  <View>
-                    <ConfirmButton HomeScreen={this}/>
-                  </View>
+
                 </View>
             
                 {this._renderSectionList()}

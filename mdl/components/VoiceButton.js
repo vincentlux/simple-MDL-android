@@ -21,8 +21,6 @@ class VoiceButton extends Component {
 
 constructor(props) {
     super(props);
-    // speechRes: 'lol';
-    // a = props.onUpdateSearch;
     Voice.onSpeechStart = this.onSpeechStart;
     Voice.onSpeechRecognized = this.onSpeechRecognized;
     Voice.onSpeechEnd = this.onSpeechEnd;
