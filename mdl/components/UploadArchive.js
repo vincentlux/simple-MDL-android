@@ -13,6 +13,7 @@ class UploadArchive extends Component {
       showFileName: false,
       file: undefined,
       txt: undefined,
+      fileSet: false,
     };
   }
     // state = {
@@ -64,7 +65,8 @@ class UploadArchive extends Component {
             file: response,
             txt: response.uri,
             fileName: response.path.replace(/\//g, '_'), // convert all / to _
-            showFileName: !this.state.showFileName
+            showFileName: !this.state.showFileName,
+            fileSet: true,
           });
           console.log('hey',this.state.file)
           console.log(this.state.file.path.replace(/\//g, '_'))
@@ -87,41 +89,38 @@ class UploadArchive extends Component {
       }
     }
 
-
+    _renderButtons = () => {
+      console.log(this.state.fileSet)
+      if (!this.state.fileSet) {
+        return (
+                <View>
+                <TouchableOpacity style={styles.button} onPress={this.selectFileTapped.bind(this)}>
+                <Text style={styles.text}>Choose file...</Text>
+                </TouchableOpacity>
+                </View>
+        );
+      } else {
+        return (
+                <View>
+                <TouchableOpacity style={styles.button} onPress={this.uploadText}>
+                <Text style={styles.text} >Upload</Text>
+                </TouchableOpacity>
+                </View>
+        );
+      }
+    }
 
     render() {
         return (
           <View style={styles.container}>
             {this._renderFileName()}
-            <TouchableOpacity style={styles.button} onPress={this.selectFileTapped.bind(this)}>
-                  <Text style={styles.text}>Choose file..</Text>
-            </TouchableOpacity>
-            {/*<Text style={styles.fileInfo}>{JSON.stringify(this.state.file)}</Text>*/}
-            {/*<FetchLocation onGetLocation={this.getUserLocationHandler} />*/}
-            <TouchableOpacity style={styles.button} onPress={this.uploadText}>
-                <Text style={styles.text} >Upload!</Text>
-            </TouchableOpacity>
-    
+            {this._renderButtons()}
+
           </View>
         );
       }
 
 };
-
-
-
-
-
-// const uploadArchive = props => {
-//     return (
-//         // <Button title="Upload" onPress={props.onGetLocation} />
-//         <TouchableOpacity style={styles.button} onPress={props.onUploadArchive}>
-//             <Text style={styles.text}  >Upload!</Text>
-//         </TouchableOpacity>
-//     );
-
-// };
-
 
 
 const styles = StyleSheet.create({
@@ -137,8 +136,8 @@ const styles = StyleSheet.create({
         margin: 10,
       },
       text: {
-        color: '#fff',
-        fontSize: 20,
+        color: '#673AB7',
+        fontSize: 30,
       },
       textBlack: {
         color: '#000000',
@@ -146,10 +145,10 @@ const styles = StyleSheet.create({
       },
       button: {
         // borderColor: '#9B9B9B',
-        borderWidth: 1 / PixelRatio.get(),
-        backgroundColor: '#8543e8',
-        margin: 10,
-        padding: 10
+        // borderWidth: 1 / PixelRatio.get(),
+        // backgroundColor: 'white',
+        // margin: 10,
+        // padding: 10,
       },
       fileInfo: {
         borderColor: '#9B9B9B',

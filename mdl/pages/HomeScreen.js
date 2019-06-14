@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, TouchableHighlight} from 'react-native';
 import { SearchBar } from 'react-native-elements';
 
 import VoiceButton from '../components/VoiceButton';
@@ -7,7 +7,17 @@ import ConfirmButton from '../components/ConfirmButton';
 import CancelButton from '../components/CancelButton';
 
 class HomeScreen extends React.Component {
-    static navigationOptions = { header: null };
+    static navigationOptions = { 
+        header: null,
+        tabBarIcon: ({ tintColor }) => (
+            <Image
+              source={require('../assets/images/m.png')}
+              style={[styles.icon, { tintColor: tintColor }]}
+            />
+          ), 
+
+    
+    };
     state = {
         search: '',
     };
@@ -87,6 +97,10 @@ const styles = StyleSheet.create({
         margin: 10,
         color: '#673AB7'
     },
+    icon: {
+        width: 30,
+        height: 26,
+      },
 });
 
 export default HomeScreen;

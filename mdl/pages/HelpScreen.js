@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button,Image, TouchableOpacity, TouchableHighlight} from 'react-native';
 
 class HelpScreen extends React.Component {
-    static navigationOptions = { header: null };
+    static navigationOptions = { header: null,
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          source={require('../assets/images/help.png')}
+          style={[styles.icon, { tintColor: tintColor }]}
+        />
+      )
+    };
     render() {
       return (
         <View style={styles.container}>
@@ -24,6 +31,10 @@ title: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+},
+icon: {
+  width: 30,
+  height: 26,
 },
 });
   
