@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 
 import RNFetchBlob from 'rn-fetch-blob';
 
@@ -12,12 +12,21 @@ class ConfirmButton extends Component {
         };
     }
 
+    sendQuery = () => {
+        console.log('Query should be sent here')
+        console.log(this.props.HomeScreen.state.search)
+        console.log(this.props.HomeScreen.state.fileName)
+        // things to do here: 1. choose right collection 2. send mdl query to get data back
+
+    }
+
+
     render() {
         return (
             <View>
-                <TouchableHighlight underlayColor='rgba(227, 227, 227, 1)'>
+                <TouchableOpacity underlayColor='rgba(227, 227, 227, 1)' onPress={this.sendQuery}>
                 <Image style={styles.button} source={require('../assets/images/check.png')} />
-                </TouchableHighlight>
+                </TouchableOpacity>
 
             </View>
         );

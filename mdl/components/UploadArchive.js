@@ -28,7 +28,7 @@ class UploadArchive extends Component {
       RNFetchBlob.config({
         trusty : true
       })
-      .fetch('POST', 'https://mdl.unc.edu/api/upload_file_rn', {
+      .fetch('POST', 'https://mdl.unc.edu/api/upload_file', {
         'Content-Type' : 'multipart/form-data',
       }, [
         { name : 'name', data : 'user'},
@@ -64,12 +64,13 @@ class UploadArchive extends Component {
           this.setState({
             file: response,
             txt: response.uri,
-            fileName: response.path.replace(/\//g, '_'), // convert all / to _
+            // convert all / to _; remove first char
+            fileName: response.path.replace(/\//g, '_').substring(1), 
             showFileName: !this.state.showFileName,
             fileSet: true,
           });
           console.log('hey',this.state.file)
-          console.log(this.state.file.path.replace(/\//g, '_'))
+          console.log(this.state.fileName)
           console.log('txt?',this.state.txt)
         }
       });

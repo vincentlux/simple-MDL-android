@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, TouchableHighlight} from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import RNFetchBlob from 'rn-fetch-blob';
 
 import VoiceButton from '../components/VoiceButton';
 import ConfirmButton from '../components/ConfirmButton';
 import CancelButton from '../components/CancelButton';
+
 
 class HomeScreen extends React.Component {
     static navigationOptions = { 
@@ -15,24 +17,58 @@ class HomeScreen extends React.Component {
               style={[styles.icon, { tintColor: tintColor }]}
             />
           ), 
-
-    
     };
     state = {
         search: '',
+        fileName: '',
+        emailJson: '',
+        sectionListReady: false,
     };
 
+    // idea: if update search being called, trigger api post email immediately
     updateSearch = search => {
-        this.setState({ search:search });
-        console.log(this.state.search)
-        // console.log(this.refs.VoiceButton.state.speechRes)
-
+        this.setState({ search:search },()=>this.getEmail());
+        console.log('time to search!')
     };
 
+
+    getEmail = () =>{
+        console.log(this.state.search)
+        console.log(this.state.fileName)
+        // call simple here to search
+        const query = {'query': this.state.search}
+        RNFetchBlob.config({
+          trusty : true
+        })
+        .fetch('POST', 'https://mdl.unc.edu/api/simple', {
+          'Content-Type' : 'application/json',
+        }, JSON.stringify(query)).then((res) => {
+          console.log(res.json())
+          this.setState({
+            emailJson:res.json() 
+          }, ()=>this.setState({sectionListReady: true})) // set ready here? => let SectionList fetch all res through props
+        }).catch((err) => {
+          console.log(err)
+        })
+
+    }
+
+    _renderSectionList = () =>{
+        if(this.state.sectionListReady){
+            // change to email sectionlist
+            return <Text>{JSON.stringify(this.state.emailJson)}</Text>;
+        }
+        else{
+            return null;
+        }
+
+    }
+    
     render() {
         const { navigation } = this.props;
         const fileName = navigation.getParam('fileName', 'Enron Dataset');
         const success = navigation.getParam('success', false);
+        this.state.fileName = fileName;
     
     
         return (
@@ -59,21 +95,20 @@ class HomeScreen extends React.Component {
                     flex: 2,
                     flexDirection: 'row',
                     justifyContent: 'space-around',
-                    
                   }}>
-
-                  <View style={{ }}>
-                  <CancelButton/>
+                  <View>
+                    <CancelButton/>
                   </View>
-                  <View style={{ }}>
-                  <VoiceButton HomeScreen={this}/>
+                  <View>
+                    <VoiceButton HomeScreen={this}/>
                   </View>
-                  <View style={{ }}>
-                    <ConfirmButton/>
-                    </View>
-
+                  <View>
+                    <ConfirmButton HomeScreen={this}/>
+                  </View>
                 </View>
-    
+            
+                {this._renderSectionList()}
+
             </View>
         );
         }

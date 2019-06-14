@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 
 import Voice from 'react-native-voice';
+import RNFetchBlob from 'rn-fetch-blob';
 
 class VoiceButton extends Component {
   state = {
@@ -12,7 +13,8 @@ class VoiceButton extends Component {
     started: '',
     results: [],
     partialResults: [],
-    speechRes: 'lol'
+    speechRes: '',
+    mdlQuery: ''
   };
 
 
@@ -70,13 +72,28 @@ constructor(props) {
       results: e.value,
       speechRes: e.value[0],
     });
-    console.log(this.state.speechRes)
-    // update textbox
-    this.props.HomeScreen.updateSearch(this.state.speechRes)
-
+    // query -> mdl query -> back to HomeScreen 
+    this.queryToMDL()
   };
 
+  queryToMDL= () => {
+    // call api to convert speech query to mdl query
+    const query = {'query': this.state.speechRes}
+    RNFetchBlob.config({
+      trusty : true
+    })
+    .fetch('POST', 'https://mdl.unc.edu/api/speech_regex', {
+      'Content-Type' : 'application/json',
+    }, JSON.stringify(query)).then((res) => {
+      // set mdlQuery
+      this.setState({
+        mdlQuery: res.json().res_query
+      }, ()=>this.props.HomeScreen.updateSearch(this.state.mdlQuery)) // update to homescreen
 
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
   
 
 
@@ -173,9 +190,9 @@ constructor(props) {
         })}*/}
 
         {/*<Text style={styles.stat}>{`End: ${this.state.end}`}</Text>*/}
-        <TouchableHighlight onPress={this._startRecognizing} underlayColor='rgba(227, 227, 227, 1)'>
+        <TouchableOpacity onPress={this._startRecognizing} underlayColor='rgba(227, 227, 227, 1)'>
           <Image style={styles.button} source={require('../assets/images/large.png')} />
-        </TouchableHighlight>
+        </TouchableOpacity>
         {/*<TouchableHighlight onPress={this._stopRecognizing}>
           <Text style={styles.action}>Stop Recognizing</Text>
         </TouchableHighlight>
