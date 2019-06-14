@@ -48,7 +48,7 @@ class HomeScreen extends React.Component {
                 platform='android'
                 inputStyle={{backgroundColor: 'white'}}
                 containerStyle={{backgroundColor: 'white', borderWidth: 1, borderRadius: 5}}
-                placeholder='Try "Last 1 email Michael"'
+                placeholder='Say "Last 1 email Michael"'
                 onChangeText={this.updateSearch}
                 lightTheme
                 value={this.state.search}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         // backgroundColor: '#F5FCFF',
     },
     title: {
-        fontSize: 30,
+        fontSize: 35,
         textAlign: 'center',
         margin: 10,
         color: '#673AB7'
