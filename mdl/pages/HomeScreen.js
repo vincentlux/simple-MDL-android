@@ -3,16 +3,13 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, TouchableHig
 import { SearchBar } from 'react-native-elements';
 
 import VoiceButton from '../components/VoiceButton';
-
+import ConfirmButton from '../components/ConfirmButton';
+import CancelButton from '../components/CancelButton';
 
 class HomeScreen extends React.Component {
     static navigationOptions = { header: null };
     state = {
         search: '',
-    };
-
-    componentWillMount() {
-        console.log('component will mount')
     };
 
     updateSearch = search => {
@@ -21,12 +18,6 @@ class HomeScreen extends React.Component {
         // console.log(this.refs.VoiceButton.state.speechRes)
 
     };
-
-    componentDidMount() {
-        console.log('home mounted')
-        // console.log(this.refs.VoiceButton.state.speechRes)
-    }
-
 
     render() {
         const { navigation } = this.props;
@@ -37,10 +28,9 @@ class HomeScreen extends React.Component {
         return (
             <View style={styles.box}>
                 <View style={styles.container}>
-                <Text>Home Screen</Text>
-                <Text>file: {JSON.stringify(fileName)}</Text>
-                <Text>success: {JSON.stringify(success)}</Text>
-                <Text style={styles.title}> Simple-MDL Search </Text>
+                    <Text>file: {JSON.stringify(fileName)}</Text>
+                    <Text>success: {JSON.stringify(success)}</Text>
+                    <Text style={styles.title}> Simple-MDL Search </Text>
                 </View>
 
                 <View>
@@ -55,8 +45,24 @@ class HomeScreen extends React.Component {
                 />
                 </View>
 
-            {/*<VoiceButton ref='VoiceButton'/>*/}
-            <VoiceButton HomeScreen={this}/>
+                <View style={{
+                    flex: 2,
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                    
+                  }}>
+
+                  <View style={{ }}>
+                  <CancelButton/>
+                  </View>
+                  <View style={{ }}>
+                  <VoiceButton HomeScreen={this}/>
+                  </View>
+                  <View style={{ }}>
+                    <ConfirmButton/>
+                    </View>
+
+                </View>
     
             </View>
         );
@@ -67,6 +73,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        margin: 5,
         // backgroundColor: '#F5FCFF',
     },
     box: {
@@ -75,9 +82,10 @@ const styles = StyleSheet.create({
         // backgroundColor: '#F5FCFF',
     },
     title: {
-        fontSize: 20,
+        fontSize: 30,
         textAlign: 'center',
         margin: 10,
+        color: '#673AB7'
     },
 });
 

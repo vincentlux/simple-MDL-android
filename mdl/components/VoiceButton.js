@@ -155,14 +155,14 @@ constructor(props) {
   };
   render() {
     return (
-      <View style={styles.container}>
+      <View>
         {/*<Text style={styles.instructions}>Press the button and start speaking.</Text>
         <Text style={styles.stat}>{`Started: ${this.state.started}`}</Text>
         <Text style={styles.stat}>{`Recognized: ${this.state.recognized}`}</Text>
         <Text style={styles.stat}>{`Pitch: ${this.state.pitch}`}</Text>
         <Text style={styles.stat}>{`Error: ${this.state.error}`}</Text>
     <Text style={styles.stat}>Results</Text>
-    
+
         {this.state.results.map((result, index) => {
             if(index==0)
                 return (
@@ -173,8 +173,8 @@ constructor(props) {
         })}*/}
 
         {/*<Text style={styles.stat}>{`End: ${this.state.end}`}</Text>*/}
-        <TouchableHighlight onPress={this._startRecognizing}>
-          <Image style={styles.button} source={require('../assets/images/button.png')} />
+        <TouchableHighlight onPress={this._startRecognizing} underlayColor='rgba(227, 227, 227, 1)'>
+          <Image style={styles.button} source={require('../assets/images/large.png')} />
         </TouchableHighlight>
         {/*<TouchableHighlight onPress={this._stopRecognizing}>
           <Text style={styles.action}>Stop Recognizing</Text>
@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
   button: {
     width: 50,
     height: 50,
+    //#673AB7
   },
   container: {
     flex: 1,
