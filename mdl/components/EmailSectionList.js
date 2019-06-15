@@ -7,13 +7,13 @@ class EmailSectionList extends Component {
 
     render() {
         return(
-            <View style={{flex: 2, marginTop: 30}}>
+            <View style={{flex:1}}>
             {/*<Text>{JSON.stringify(this.props.HomeScreen.state.emailJson)}</Text>*/}
             
             <SectionList
-                renderItem={({item, index, section}) => <Text key={index}>{item}</Text>}
+                renderItem={({item, index, section}) => <Text style={styles.text} key={index}>{item}</Text>}
                 renderSectionHeader={({section: {title}}) => (
-                    <Text style={{fontWeight: 'bold'}}>{title}</Text>
+                    <Text style={styles.title}>{title}</Text>
                   )}
                 sections={this.props.HomeScreen.state.emailJson}
                 keyExtractor={(item, index) => item + index}
@@ -25,5 +25,19 @@ class EmailSectionList extends Component {
         )}
 
 }
+
+const styles = StyleSheet.create({
+    text:{
+        padding:10,
+        fontSize:16,
+    
+      },
+    title:{
+        padding:10,
+        fontSize:24,
+        fontWeight: 'bold'
+      }
+
+})
 
 export default EmailSectionList;

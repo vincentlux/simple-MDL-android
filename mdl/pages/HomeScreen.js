@@ -99,54 +99,59 @@ class HomeScreen extends React.Component {
         return (
             <View style={styles.box}>
                 <View style={styles.container}>
-                    <Text>file: {JSON.stringify(fileName)}</Text>
-                    <Text>success: {JSON.stringify(success)}</Text>
+                    <Text>{fileName}</Text>
                     <Text style={styles.title}> Simple-MDL Search </Text>
+                
+
+                    <SearchBar
+                    platform='android'
+                    inputStyle={{backgroundColor: 'white'}}
+                    containerStyle={{backgroundColor: 'white', borderWidth: 1, borderRadius: 5}}
+                    placeholder='Say "Last 1 email Michael"'
+                    onChangeText={this.updateSearch}
+                    lightTheme
+                    clearIcon={false}
+                    searchIcon={false}
+                    value={this.state.search}
+                    />
+                    <View style={styles.behind}>
+                        <VoiceButton HomeScreen={this}/>
+                    </View>
+                    
                 </View>
 
-                <View>
-                <SearchBar
-                platform='android'
-                inputStyle={{backgroundColor: 'white'}}
-                containerStyle={{backgroundColor: 'white', borderWidth: 1, borderRadius: 5}}
-                placeholder='Say "Last 1 email Michael"'
-                onChangeText={this.updateSearch}
-                lightTheme
-                value={this.state.search}
-                />
-                </View>
-
-                <View style={{
-                    flex: 2,
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
-                  }}>
-
-                  <View>
-                    <VoiceButton HomeScreen={this}/>
-                  </View>
-
+                <View style={styles.content}> 
+                    {this._renderSectionList()}
                 </View>
             
-                {this._renderSectionList()}
+                
 
             </View>
         );
         }
 }
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 5,
-        // backgroundColor: '#F5FCFF',
-    },
     box: {
         flex: 1,
-        justifyContent: 'center',
+        flexDirection:'column',
         // backgroundColor: '#F5FCFF',
     },
+    container: {
+        height: 220,
+
+        // backgroundColor: '#F5FCFF',
+    },
+    behind:{
+        position: 'absolute',
+        // left: 200,
+        alignItems: 'flex-end',
+        top: 155,
+        width: '100%',
+        height: '100%'
+    },
+    content:{
+        flex:1,
+      },
     title: {
         fontSize: 35,
         textAlign: 'center',
