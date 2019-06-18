@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, Image, TouchableOpacity, TouchableHighlight} from 'react-native';
+import {Platform, FlatList, StyleSheet, Text, View, Button, Image, TouchableOpacity, TouchableHighlight} from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob';
 import UploadArchive from '../components/UploadArchive';
 import ArchiveList from '../components/ArchiveList';
@@ -28,13 +28,26 @@ class UploadScreen extends Component {
     // componentDidUpdate() {
     //   console.log('did update')
     // }
-  
+    _renderItem = (item) => {
+      console.log('render item')
+      console.log(item)
+      return (
+        <ArchiveList archive={item.item} navigation={this.props.navigation}/>
+      )
+    };
+
+
     render() {
       return (
         <View style={styles.container}>
+          <FlatList
+            data={this.state.fileList}
+            renderItem={this._renderItem}
+            // may have bug here 
+            keyExtractor={(item, index) => index.toString()}
+          /> 
           <UploadArchive ref='UploadArchive' />
 
-          
           <Button
             title="Apply"
             onPress={() => this.props.navigation.navigate('MDL', {
