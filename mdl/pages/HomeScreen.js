@@ -9,7 +9,7 @@ import EmailSectionList from '../components/EmailSectionList';
 // import CancelButton from '../components/CancelButton';
 
 
-class HomeScreen extends React.Component {
+class HomeScreen extends Component {
     static navigationOptions = { 
         header: null,
         tabBarIcon: ({ tintColor }) => (
