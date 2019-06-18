@@ -32,27 +32,6 @@ class HomeScreen extends React.Component {
         console.log('time to search!')
     };
 
-    // getEmail = () =>{
-    //     console.log(this.state.search)
-    //     console.log(this.state.fileName)
-    //     // call simple here to search
-    //     const query = {'query': this.state.search}
-    //     RNFetchBlob.config({
-    //       trusty : true
-    //     })
-    //     .fetch('POST', 'https://mdl.unc.edu/api/simple_rn', {
-    //       'Content-Type' : 'application/json',
-    //     }, JSON.stringify(query)).then((res) => {
-    //     //   console.log(res.json())
-        
-    //       this.setState({
-    //         emailJson:res.json() 
-    //       }, ()=>this.setState({sectionListReady: true})) // set ready here? => let SectionList fetch all res through props
-    //     }).catch((err) => {
-    //       console.log(err)
-    //     })
-    // }
-
     getEmail = () =>{
         console.log(this.state.search)
         console.log(this.state.fileName)

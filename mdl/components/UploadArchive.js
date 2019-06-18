@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, Button, View, TouchableOpacity, PixelRatio } from 'react-native';
+import { Text, StyleSheet, Button, View, TouchableOpacity, PixelRatio, ActivityIndicator } from 'react-native';
 
 import FilePickerManager from 'react-native-file-picker';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -13,18 +13,16 @@ class UploadArchive extends Component {
       showFileName: false,
       file: undefined,
       txt: undefined,
-      fileSet: false,
+      fileSelected: false,
+      fileStartUpload: false,
+      fileUploaded: false,
     };
   }
-    // state = {
-    //     showFileName: false,
-    //     file: undefined,
-    //     txt: undefined,
-    // };
-  
-  
+
     uploadText = () =>{
       console.log('uploading')
+      console.log(this.state.fileUploaded)
+      this.setState({fileUploaded: false, fileStartUpload: true})
       RNFetchBlob.config({
         trusty : true
       })
@@ -38,6 +36,8 @@ class UploadArchive extends Component {
         console.log('uploaded')
         console.log(resp)
         console.log('set State here')
+        this.setState({fileUploaded: true, fileSelected: false, fileStartUpload: false})
+
       }).catch((err) => {
         console.log(err)
       })
@@ -66,8 +66,9 @@ class UploadArchive extends Component {
             txt: response.uri,
             // convert all / to _; remove first char
             fileName: response.path.replace(/\//g, '_').substring(1), 
-            showFileName: !this.state.showFileName,
-            fileSet: true,
+            showFileName: true,
+            fileSelected: true,
+            fileUploaded: false,
           });
           console.log('hey',this.state.file)
           console.log(this.state.fileName)
@@ -90,9 +91,29 @@ class UploadArchive extends Component {
       }
     }
 
+    _renderFileUploaded = () => {
+      if (this.state.fileUploaded) {
+        // reset 
+        // this.setState({fileSelected: false})
+        return (
+                <View>
+                    <Text style={styles.textBlack}>file uploaded!</Text>
+                </View>
+        );
+      } else if (this.state.fileStartUpload){
+
+        return (
+          <View>
+            <ActivityIndicator animating={true} size="small"/>
+            <Text >loading...</Text>
+          </View>
+        );
+      }
+    }
+
     _renderButtons = () => {
-      console.log(this.state.fileSet)
-      if (!this.state.fileSet) {
+      console.log(this.state.fileSelected)
+      if (!this.state.fileSelected) {
         return (
                 <View>
                 <TouchableOpacity style={styles.button} onPress={this.selectFileTapped.bind(this)}>
@@ -100,7 +121,7 @@ class UploadArchive extends Component {
                 </TouchableOpacity>
                 </View>
         );
-      } else {
+      } else if (!this.state.fileStartUpload){
         return (
                 <View>
                 <TouchableOpacity style={styles.button} onPress={this.uploadText}>
@@ -116,6 +137,7 @@ class UploadArchive extends Component {
           <View style={styles.container}>
             {this._renderFileName()}
             {this._renderButtons()}
+            {this._renderFileUploaded()}
 
           </View>
         );
