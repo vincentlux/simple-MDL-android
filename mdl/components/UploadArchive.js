@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
       },
       textBlack: {
         color: '#000000',
+        textAlign: 'center',
         fontSize: 20,
       },
       button: {

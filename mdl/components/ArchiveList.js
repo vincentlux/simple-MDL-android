@@ -30,7 +30,41 @@ class ArchiveList extends Component {
           })
     }
 
+    deleteArchive = () =>{
+        const {archive} = this.props;
+        console.log(archive)
+        RNFetchBlob.config({
+            trusty : true
+          })
+          .fetch('PUT', `https://mdl.unc.edu/api/delete_file/${archive.title}`)
+          .then((res) => {
+            console.log('delete succeed!')
+            console.log(res)
+          }).then(()=>{
+            this.props.UploadScreen.loadArchiveList()
+          })
+          .catch((err) => {
+            console.log(err)
+          })
 
+    }
+
+    _renderDeleteButton = () =>{
+        const {archive} = this.props;
+        // ensure demo not deleted
+        if (archive.title != 'Enron Dataset'){
+            return (
+                <Button
+                title="Delete"
+                onPress={this.deleteArchive}
+                />
+            );
+        }
+        else{
+            return null;
+        }
+
+    }
 
     render() {        
         const {archive} = this.props;
@@ -41,11 +75,9 @@ class ArchiveList extends Component {
                 <Text>{archive.title}</Text>
                 <Button
                 title="Apply"
-                /////////////////////NEED TO ALSO FETCH PUT NAME INTO LIST!! 
-                // onPress={a function here}
                 onPress={this.applyArchive}
                 />
-
+                {this._renderDeleteButton()}
               </View>
             </View>
           </TouchableHighlight>

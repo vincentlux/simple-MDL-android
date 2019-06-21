@@ -32,7 +32,7 @@ class UploadScreen extends Component {
       console.log('render item')
       console.log(item)
       return (
-        <ArchiveList archive={item.item} navigation={this.props.navigation}/>
+        <ArchiveList archive={item.item} navigation={this.props.navigation} UploadScreen={this}/>
       )
     };
 
