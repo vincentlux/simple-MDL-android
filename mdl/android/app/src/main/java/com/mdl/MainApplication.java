@@ -11,6 +11,8 @@ import com.facebook.soloader.SoLoader;
 import com.filepicker.FilePickerPackage; // import package
 import com.RNFetchBlob.RNFetchBlobPackage;    
 import com.wenkesj.voice.VoicePackage;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
+
 
 import java.util.Arrays;
 import java.util.List; 
@@ -43,7 +45,8 @@ public class MainApplication extends Application implements ReactApplication {
             new FilePickerPackage(),
             new RNFetchBlobPackage(),
             new VoicePackage(),
-            new RNGestureHandlerPackage()
+            new RNGestureHandlerPackage(),
+            new RNCWebViewPackage()
         );
     }
   };

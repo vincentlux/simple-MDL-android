@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button,Image, TouchableOpacity, TouchableHighlight} from 'react-native';
+import { WebView } from 'react-native-webview';
+// import {WebView} from 'react-native';
+
 
 class HelpScreen extends React.Component {
     static navigationOptions = { header: null,
@@ -12,9 +15,13 @@ class HelpScreen extends React.Component {
     };
     render() {
       return (
-        <View style={styles.container}>
-          <Text>Help placeholder</Text>
-        </View>
+          <WebView
+           source={{ uri: 'https://mdl.unc.edu' }}
+           originWhitelist={['https://*', 'git://*']}
+           javaScriptEnabled={true}
+           domStorageEnabled={true} 
+           startInLoadingState={false}
+           />
       );
     }
   }
