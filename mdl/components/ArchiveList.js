@@ -1,11 +1,39 @@
 import React, { Component } from 'react';
 import { StyleSheet,Button, FlatList, Text, View, Image, TouchableHighlight } from 'react-native';
+import RNFetchBlob from 'rn-fetch-blob';
+
 
 class ArchiveList extends Component {
-    render() {
+    state = {
+
+    };
+    
+  
+    applyArchive = () =>{
         const {archive} = this.props;
         console.log(archive)
-        
+        console.log('should rn fetch put here? or set')
+        RNFetchBlob.config({
+            trusty : true
+          })
+          .fetch('PUT', `https://mdl.unc.edu/api/file_list/${archive.title}`)
+          .then((res) => {
+            console.log('put succeed!')
+            console.log(res)
+          }).catch((err) => {
+            console.log(err)
+          })
+
+        this.props.navigation.navigate('MDL', {
+            fileName: archive.title,
+            success: true,
+          })
+    }
+
+
+
+    render() {        
+        const {archive} = this.props;
         return (
           <TouchableHighlight>
             <View>
@@ -15,10 +43,7 @@ class ArchiveList extends Component {
                 title="Apply"
                 /////////////////////NEED TO ALSO FETCH PUT NAME INTO LIST!! 
                 // onPress={a function here}
-                onPress={() => this.props.navigation.navigate('MDL', {
-                  fileName: archive.title,
-                  success: true,
-                })}
+                onPress={this.applyArchive}
                 />
 
               </View>

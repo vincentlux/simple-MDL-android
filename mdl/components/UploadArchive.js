@@ -19,6 +19,7 @@ class UploadArchive extends Component {
     };
   }
 
+
     uploadText = () =>{
       console.log('uploading')
       console.log(this.state.fileUploaded)
@@ -36,7 +37,13 @@ class UploadArchive extends Component {
         console.log('uploaded')
         console.log(resp)
         console.log('set State here')
-        this.setState({fileUploaded: true, fileSelected: false, fileStartUpload: false})
+        this.setState({
+          fileUploaded: true, 
+          fileSelected: false, 
+          fileStartUpload: false}, () => {
+            // call api to update the list 
+            this.props.UploadScreen.loadArchiveList()
+          })
 
       }).catch((err) => {
         console.log(err)
@@ -93,8 +100,6 @@ class UploadArchive extends Component {
 
     _renderFileUploaded = () => {
       if (this.state.fileUploaded) {
-        // reset 
-        // this.setState({fileSelected: false})
         return (
                 <View>
                     <Text style={styles.textBlack}>file uploaded!</Text>

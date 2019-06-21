@@ -46,7 +46,8 @@ class UploadScreen extends Component {
             // may have bug here 
             keyExtractor={(item, index) => index.toString()}
           /> 
-          <UploadArchive ref='UploadArchive' />
+          
+          <UploadArchive UploadScreen={this}/>
 
           {/*<Button
             title="Apply"
