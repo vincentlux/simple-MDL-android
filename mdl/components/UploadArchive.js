@@ -86,7 +86,7 @@ class UploadArchive extends Component {
 
     _renderFileName = () => {
       console.log(this.state.showFileName)
-      if (this.state.showFileName) {
+      if (this.state.showFileName && !this.state.fileUploaded) {
         console.log(this.state.fileName)
         return (
                 <View>
@@ -109,7 +109,7 @@ class UploadArchive extends Component {
 
         return (
           <View>
-            <ActivityIndicator animating={true} size="small"/>
+            <ActivityIndicator animating={true} size="large"/>
             <Text >loading...</Text>
           </View>
         );

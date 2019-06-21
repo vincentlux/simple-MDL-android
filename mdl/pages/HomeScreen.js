@@ -26,6 +26,24 @@ class HomeScreen extends Component {
         sectionListReady: false,
     };
 
+    componentDidMount(){
+        console.log('home screen did mount')
+
+        // reset solr at the start
+        const query = {'query': 'reset'}
+        RNFetchBlob.config({
+            trusty : true
+        })
+        .fetch('POST', 'https://mdl.unc.edu/api/reset_solr', {
+            'Content-Type' : 'application/json',
+        }, JSON.stringify(query)).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
+
+    }
+
     // idea: if update search being called, trigger api post email immediately
     updateSearch = search => {
         this.setState({ search:search },()=>this.getEmail());

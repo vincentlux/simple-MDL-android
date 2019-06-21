@@ -56,6 +56,7 @@ class ArchiveList extends Component {
             return (
                 <Button
                 title="Delete"
+                color='#dd1e18'
                 onPress={this.deleteArchive}
                 />
             );
@@ -72,7 +73,7 @@ class ArchiveList extends Component {
           <TouchableHighlight>
             <View>
               <View>
-                <Text>{archive.title}</Text>
+                <Text style={styles.title} >{archive.title}</Text>
                 <Button
                 title="Apply"
                 onPress={this.applyArchive}
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
       paddingBottom: 5
     },
     title: {
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: 'bold',
       color: '#333333',
       textAlign: 'left',
