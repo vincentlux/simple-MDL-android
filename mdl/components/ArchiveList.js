@@ -13,7 +13,8 @@ class ArchiveList extends Component {
                 <Text>{archive.title}</Text>
                 <Button
                 title="Apply"
-                /////////////////////NEED TO ALSO FETCH PUT NAME INTO LIST
+                /////////////////////NEED TO ALSO FETCH PUT NAME INTO LIST!! 
+                // onPress={a function here}
                 onPress={() => this.props.navigation.navigate('MDL', {
                   fileName: archive.title,
                   success: true,

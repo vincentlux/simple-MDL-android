@@ -48,13 +48,13 @@ class UploadScreen extends Component {
           /> 
           <UploadArchive ref='UploadArchive' />
 
-          <Button
+          {/*<Button
             title="Apply"
             onPress={() => this.props.navigation.navigate('MDL', {
               fileName: this.refs.UploadArchive.state.fileName,
               success: true,
             })}
-          />
+          />*/}
         </View>
       );
     }
