@@ -17,6 +17,24 @@ class ConfirmButton extends Component {
         console.log(this.props.HomeScreen.state.search)
         console.log(this.props.HomeScreen.state.fileName)
         // things to do here: 1. choose right collection 2. send mdl query to get data back
+        // call api to convert speech query to mdl query
+        const query = {'query': this.props.HomeScreen.state.search}
+        this.props.HomeScreen.getEmail()
+        // this.props.HomeScreen.updateSearch
+        // RNFetchBlob.config({
+        //   trusty : true
+        // })
+        // .fetch('POST', 'https://mdl.unc.edu/api/speech_regex', {
+        //   'Content-Type' : 'application/json',
+        // }, JSON.stringify(query)).then((res) => {
+        //   // set mdlQuery
+        //   this.setState({
+        //     mdlQuery: res.json().res_query
+        //   }, ()=>this.props.HomeScreen.updateSearch(this.state.mdlQuery)) // update to homescreen
+
+        // }).catch((err) => {
+        //   console.log(err)
+        // })
 
     }
 

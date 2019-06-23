@@ -29,12 +29,12 @@ class EmailSectionList extends Component {
 const styles = StyleSheet.create({
     text:{
         padding:10,
-        fontSize:16,
+        fontSize:14,
     
       },
     title:{
         padding:10,
-        fontSize:24,
+        fontSize:20,
         fontWeight: 'bold'
       }
 

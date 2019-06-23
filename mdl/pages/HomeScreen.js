@@ -5,7 +5,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 import VoiceButton from '../components/VoiceButton';
 import EmailSectionList from '../components/EmailSectionList';
-// import ConfirmButton from '../components/ConfirmButton';
+import ConfirmButton from '../components/ConfirmButton';
 // import CancelButton from '../components/CancelButton';
 
 
@@ -43,6 +43,15 @@ class HomeScreen extends Component {
         })
 
     }
+
+
+    updateSearchText = search => {
+        // only update text instead of triggering search automatically
+        // this.getEmail should be triggered by ConfirmButton
+        this.setState({ search:search });
+        console.log('updated the text')
+    };
+
 
     // idea: if update search being called, trigger api post email immediately
     updateSearch = search => {
@@ -104,8 +113,8 @@ class HomeScreen extends Component {
                     platform='android'
                     inputStyle={{backgroundColor: 'white'}}
                     containerStyle={{backgroundColor: 'white', borderWidth: 1, borderRadius: 5}}
-                    placeholder='Say "Last 1 email Michael"'
-                    onChangeText={this.updateSearch}
+                    placeholder='Say "Last 3 email Michael"'
+                    onChangeText={this.updateSearchText}
                     lightTheme
                     clearIcon={false}
                     searchIcon={false}
@@ -115,13 +124,16 @@ class HomeScreen extends Component {
                         <VoiceButton HomeScreen={this}/>
                     </View>
                     
+                    <View style={styles.confirmButton}>
+                    <ConfirmButton HomeScreen={this}/>
+                    </View>
+                    
                 </View>
 
                 <View style={styles.content}> 
                     {this._renderSectionList()}
                 </View>
             
-                
 
             </View>
         );
@@ -134,7 +146,7 @@ const styles = StyleSheet.create({
         // backgroundColor: '#F5FCFF',
     },
     container: {
-        height: 220,
+        height: 260,
 
         // backgroundColor: '#F5FCFF',
     },
@@ -146,6 +158,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%'
     },
+    confirmButton:{
+        flex: 2,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+      },
     content:{
         flex:1,
       },
