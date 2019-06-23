@@ -6,7 +6,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import VoiceButton from '../components/VoiceButton';
 import EmailSectionList from '../components/EmailSectionList';
 import ConfirmButton from '../components/ConfirmButton';
-// import CancelButton from '../components/CancelButton';
+
 
 
 class HomeScreen extends Component {

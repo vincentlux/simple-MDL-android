@@ -56,7 +56,8 @@ class ArchiveList extends Component {
             return (
                 <Button
                 title="Delete"
-                color='#dd1e18'
+                // color='#dd1e18'
+                color='#f4a609'
                 onPress={this.deleteArchive}
                 />
             );
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
       paddingBottom: 5
     },
     title: {
-      fontSize: 18,
+      fontSize: 14,
       fontWeight: 'bold',
       color: '#333333',
       textAlign: 'left',

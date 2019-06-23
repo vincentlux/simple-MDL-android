@@ -165,12 +165,12 @@ const styles = StyleSheet.create({
       },
       text: {
         color: '#673AB7',
-        fontSize: 30,
+        fontSize: 20,
       },
       textBlack: {
         color: '#000000',
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: 16,
       },
       button: {
         // borderColor: '#9B9B9B',
