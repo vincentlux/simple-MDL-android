@@ -69,12 +69,17 @@ class HomeScreen extends Component {
 
 
     // idea: if update search being called, trigger api post email immediately
+    // idea: if update search being called, pass param to ResultScreen
     updateSearch = search => {
-        this.setState({ search:search },()=>this.getEmail());
+        // this.setState({ search:search },()=>this.getEmail());
+        this.setState({ search:search },()=>this.props.navigation.navigate('Result',{
+            search: this.state.search,
+            fileName: this.state.fileName
+        }));
         console.log('time to search!')
 
         // navigate to result page
-        this.props.navigation.navigate('Result')
+        // this.props.navigation.navigate('Result')
     };
 
     getEmail = () =>{
@@ -157,9 +162,9 @@ class HomeScreen extends Component {
 
 
 
-                <View style={styles.content}> 
+                {/*<View style={styles.content}> 
                     {this._renderSectionList()}
-                </View>
+                </View>*/}
             
 
             </View>
