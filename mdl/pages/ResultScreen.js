@@ -5,6 +5,10 @@ import EmailSectionList from '../components/EmailSectionList';
 
 
 class ResultScreen extends Component {
+    static navigationOptions = { 
+        title: 'qq',
+
+    };
     state = {
         search: '',
         fileName: '',
