@@ -12,12 +12,12 @@ import ConfirmButton from '../components/ConfirmButton';
 class HomeScreen extends Component {
     static navigationOptions = { 
         header: null,
-        tabBarIcon: ({ tintColor }) => (
-            <Image
-              source={require('../assets/images/m.png')}
-              style={[styles.icon, { tintColor: tintColor }]}
-            />
-          ), 
+        // tabBarIcon: ({ tintColor }) => (
+        //     <Image
+        //       source={require('../assets/images/m.png')}
+        //       style={[styles.icon, { tintColor: tintColor }]}
+        //     />
+        //   ), 
     };
     state = {
         search: '',
@@ -72,6 +72,9 @@ class HomeScreen extends Component {
     updateSearch = search => {
         this.setState({ search:search },()=>this.getEmail());
         console.log('time to search!')
+
+        // navigate to result page
+        this.props.navigation.navigate('Result')
     };
 
     getEmail = () =>{
@@ -102,6 +105,7 @@ class HomeScreen extends Component {
     _renderSectionList = () =>{
         if(this.state.sectionListReady){
             // change to email sectionlist
+            // this.props.navigation.navigate('Result')
             return <EmailSectionList HomeScreen={this}/>;
         }
         else{

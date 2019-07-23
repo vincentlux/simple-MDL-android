@@ -7,18 +7,38 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight} from 'react-native';
+import {Platform, StyleSheet, Text, Image, View, Button, TouchableOpacity, TouchableHighlight} from 'react-native';
 
 
 import HomeScreen from './pages/HomeScreen';
+import ResultScreen from './pages/ResultScreen';
 import UploadScreen from './pages/UploadScreen';
 import HelpScreen from './pages/HelpScreen';
 
-import { createAppContainer, createBottomTabNavigator } from "react-navigation";
+
+import { createAppContainer, createBottomTabNavigator, createStackNavigator } from "react-navigation";
+
+const HomeStack = createStackNavigator({
+  Home: HomeScreen,
+  Result: ResultScreen
+},
+{
+  initialRouteName: "Home"
+}
+);
+HomeStack.navigationOptions= { 
+  header: null,
+  tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('./assets/images/m.png')}
+        style={[styles.icon, { tintColor: tintColor }]}
+      />
+    ), 
+};
 
 
 const RootStack = createBottomTabNavigator({
-  MDL: HomeScreen,
+  MDL: HomeStack,
   Upload: UploadScreen,
   Help: HelpScreen
 },
@@ -36,18 +56,11 @@ export default class App extends React.Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     // backgroundColor: '#F5FCFF',
-//   },
-//   title: {
-//     fontSize: 20,
-//     textAlign: 'center',
-//     margin: 10,
-//   },
-// });
+const styles = StyleSheet.create({
+  icon: {
+    width: 30,
+    height: 26,
+  },
+});
 
 
