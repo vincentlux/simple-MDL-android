@@ -119,7 +119,7 @@ class HomeScreen extends Component {
     
         return (
             <View style={styles.box}>
-                <View style={styles.container}>
+
                     {/* <Text>{fileName}</Text>*/}
                     
                     {/* <Text style={styles.title}> Simple MDL Search </Text>*/}
@@ -151,7 +151,7 @@ class HomeScreen extends Component {
                     </View>
                     */}
 
-                </View>
+
 
                 <View style={styles.content}> 
                     {this._renderSectionList()}
