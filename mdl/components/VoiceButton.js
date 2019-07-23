@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import Voice from 'react-native-voice';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -189,7 +190,13 @@ constructor(props) {
 
         {/*<Text style={styles.stat}>{`End: ${this.state.end}`}</Text>*/}
         <TouchableOpacity onPress={this._startRecognizing} underlayColor='rgba(227, 227, 227, 1)'>
-          <Image style={styles.button} source={require('../assets/images/large.png')} />
+        <Icon
+          name='mic'
+          type='material'
+          color='grey'
+          size={26}
+        />
+          {/*<Image style={styles.button} source={require('../assets/images/large.png')} />*/}
         </TouchableOpacity>
         {/*<TouchableHighlight onPress={this._stopRecognizing}>
           <Text style={styles.action}>Stop Recognizing</Text>

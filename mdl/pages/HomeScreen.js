@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, TouchableHighlight} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, TouchableHighlight, Keyboard, TextInput} from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import RNFetchBlob from 'rn-fetch-blob';
 
@@ -42,8 +42,23 @@ class HomeScreen extends Component {
             console.log(err)
         })
 
+        // add keyboard listener
+        this.keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            this._keyboardDidHide.bind(this),
+        );
+
     }
 
+    _keyboardDidHide() {
+        console.log('keyboard hidden')
+        // time to trigger 'confirm button'
+        if(this.state.search==''){
+            this.setState({search: "?LAST 3 EMAIL 'Michael'"})
+        }
+        console.log(this.state.search)
+        this.updateSearch(this.state.search)
+      }
 
     updateSearchText = search => {
         // only update text instead of triggering search automatically
@@ -105,29 +120,37 @@ class HomeScreen extends Component {
         return (
             <View style={styles.box}>
                 <View style={styles.container}>
-                    <Text>{fileName}</Text>
-                    <Text style={styles.title}> Simple-MDL Search </Text>
+                    {/* <Text>{fileName}</Text>*/}
+                    
+                    {/* <Text style={styles.title}> Simple MDL Search </Text>*/}
                 
 
                     <SearchBar
                     platform='android'
-                    inputStyle={{backgroundColor: 'white'}}
-                    containerStyle={{backgroundColor: 'white', borderWidth: 1, borderRadius: 5}}
+                    // inputStyle={{backgroundColor: 'white',borderWidth: 0, borderRadius: 10}}
+                    inputContainerStyle={{backgroundColor: 'white',borderWidth: 0, borderRadius: 3, justifyContent:'center'}}
+                    // leftIconContainerStyle={{shadowColor: 'white', backgroundColor: 'white',borderWidth: 0, borderRadius: 10}}
+                    // rightIconContainerStyle={{shadowColor: 'white', backgroundColor: 'black',borderWidth: 0, borderRadius: 0}}
+                    containerStyle={{backgroundColor: '#1b89f7', borderWidth: 0, borderRadius: 0}}
                     placeholder='Say "Last 3 email Michael"'
                     onChangeText={this.updateSearchText}
-                    lightTheme
+                    // lightTheme
+                    // clearIcon = {{type: 'material-community', color: 'black', name: 'share'}}
+                    cancelIcon={false}
                     clearIcon={false}
-                    searchIcon={false}
+                    searchIcon={true}
                     value={this.state.search}
                     />
                     <View style={styles.behind}>
                         <VoiceButton HomeScreen={this}/>
                     </View>
-                    
+
+                    {/* 
                     <View style={styles.confirmButton}>
                     <ConfirmButton HomeScreen={this}/>
                     </View>
-                    
+                    */}
+
                 </View>
 
                 <View style={styles.content}> 
@@ -154,7 +177,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         // left: 200,
         alignItems: 'flex-end',
-        top: 155,
+        top: 20,
         width: '100%',
         height: '100%'
     },
