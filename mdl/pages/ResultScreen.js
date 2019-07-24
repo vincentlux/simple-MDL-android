@@ -1,18 +1,36 @@
 import React, {Component} from 'react';
-import {Platform, FlatList, StyleSheet, Text, View, Button, Image, TouchableOpacity, TouchableHighlight} from 'react-native';
+import {Platform, FlatList, StyleSheet, Text, View, Button, Image, TouchableOpacity, TouchableHighlight, Dimensions} from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob';
 import EmailSectionList from '../components/EmailSectionList';
 
 
 class ResultScreen extends Component {
-    static navigationOptions = { 
-        title: 'qq',
+    // static navigationOptions = { 
+    //     title: 'qq',
 
-    };
+    // };
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerTitleStyle :{textAlign: 'center',alignSelf:'center'},
+            headerTitle: (
+                <View style={styles.content}>
+                <Text
+                adjustsFontSizeToFit
+                numberOfLines={3}
+                style={styles.htitle}>``{navigation.getParam('search')}``</Text>
+                <Text
+                adjustsFontSizeToFit
+                numberOfLines={4}
+                style={styles.stitle}>{navigation.getParam('numEmail')} emails found.</Text>
+                </View>
+            )
+        }
+      }
     state = {
         search: '',
         fileName: '',
         emailJson: '',
+        numEmail: 0,
         sectionListReady: false,
     };
 
@@ -24,6 +42,9 @@ class ResultScreen extends Component {
         const fileName = navigation.getParam('fileName', 'Enron Dataset');
         console.log(search)
         this.setState({search: search}, ()=>this.getEmail())
+
+        // this.props.navigation.setParams({ numEmail: this.state.numEmail });
+        console.log(this.state.emailJson.length)
         
     }
 
@@ -44,11 +65,14 @@ class ResultScreen extends Component {
                 r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
                 return r;
             }, []);
-            this.setState({emailJson: emailForSection}, ()=>this.setState({sectionListReady: true}))
+            this.setState({emailJson: emailForSection}, ()=>this.setState({sectionListReady: true, numEmail: emailForSection.length}))
             console.log(this.state.sectionListReady)
+            console.log(this.state.numEmail)
         })
+        .then( r => {this.props.navigation.setParams({ numEmail: this.state.numEmail })})
         .catch((err) => {
           console.log(err)
+          this.props.navigation.setParams({ numEmail: 0 })
         })
     }
 
@@ -58,7 +82,7 @@ class ResultScreen extends Component {
             // change to email sectionlist
             // this.props.navigation.navigate('Result')
             console.log('show!')
-            console.log(this.state.emailJson)
+            console.log(this.state.emailJson.length)
             return <EmailSectionList ResultScreen={this}/>;
         }
         else{
@@ -74,22 +98,31 @@ class ResultScreen extends Component {
         const fileName = navigation.getParam('fileName', 'Enron Dataset');
         console.log('resultScreen',search)
         // getEmail
-
-
-
-
         return (
             <View>
                     {this._renderSectionList()}
             </View>
-            
-
-
         );
     }
 
   }
+  
+  const width = Dimensions.get('window').width
   const styles = StyleSheet.create({
+    // title:{
+    //     alignSelf:'stretch',
+    // },
+    
+    htitle:{
+        textAlign: 'center',
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 0.039*width,
+      },
+    stitle:{
+        textAlign: 'center',
+        fontSize: 0.03*width,
+      },
     content:{
         flex:1,
       },
