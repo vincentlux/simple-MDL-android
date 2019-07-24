@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, Button, TouchableOpacity, TouchableHighlight, Keyboard, TextInput} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import RNFetchBlob from 'rn-fetch-blob';
 
@@ -140,6 +140,7 @@ class HomeScreen extends Component {
     
     
         return (
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.box}>
 
                     {/* <Text>{fileName}</Text>*/}
@@ -158,7 +159,7 @@ class HomeScreen extends Component {
                     onChangeText={this.updateSearchText}
                     // lightTheme
                     // clearIcon = {{type: 'material-community', color: 'black', name: 'share'}}
-                    cancelIcon={false}
+                    cancelIcon={true}
                     clearIcon={false}
                     searchIcon={true}
                     value={this.state.search}
@@ -183,6 +184,7 @@ class HomeScreen extends Component {
             
 
             </View>
+            </TouchableWithoutFeedback>
         );
         }
 }
