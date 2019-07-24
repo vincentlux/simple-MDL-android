@@ -23,7 +23,8 @@ const HomeStack = createStackNavigator({
   Result: ResultScreen
 },
 {
-  initialRouteName: "Home"
+  initialRouteName: "Home",
+  headerLayoutPreset: "center" 
 }
 );
 HomeStack.navigationOptions= { 

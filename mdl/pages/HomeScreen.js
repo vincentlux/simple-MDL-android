@@ -43,21 +43,22 @@ class HomeScreen extends Component {
         })
 
         // add keyboard listener
-        this.keyboardDidHideListener = Keyboard.addListener(
-            'keyboardDidHide',
-            this._keyboardDidHide.bind(this),
-        );
+        // change to onsubmit 
+        // this.keyboardDidHideListener = Keyboard.addListener(
+        //     'keyboardDidHide',
+        //     this._keyboardDidHide.bind(this),
+        // );
 
     }
 
     _keyboardDidHide() {
         console.log('keyboard hidden')
         // time to trigger 'confirm button'
-        if(this.state.search==''){
-            this.setState({search: "?LAST 3 EMAIL 'Michael'"})
-        }
-        console.log(this.state.search)
-        this.updateSearch(this.state.search)
+        // if(this.state.search==''){
+        //     this.setState({search: "?LAST 3 EMAIL 'Michael'"})
+        // }
+        // console.log(this.state.search)
+        // this.updateSearch(this.state.search)
       }
 
     updateSearchText = search => {
@@ -106,6 +107,18 @@ class HomeScreen extends Component {
         })
     }
 
+    handleEditComplete = () => {
+        console.log('submitted')
+        if(this.state.search==''){
+            console.log('empty')
+            this.setState({search: "?LAST 3 EMAIL 'Michael'"}, ()=>this.updateSearch(this.state.search))
+        }
+        else{
+            console.log(this.state.search)
+            this.updateSearch(this.state.search)
+        }
+        
+    }
 
     _renderSectionList = () =>{
         if(this.state.sectionListReady){
@@ -149,6 +162,8 @@ class HomeScreen extends Component {
                     clearIcon={false}
                     searchIcon={true}
                     value={this.state.search}
+                    returnKeyType="search"
+                    onSubmitEditing={this.handleEditComplete}
                     />
                     <View style={styles.behind}>
                         <VoiceButton HomeScreen={this}/>
