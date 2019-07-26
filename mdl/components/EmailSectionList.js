@@ -3,19 +3,19 @@ import { StyleSheet, SectionList, Text, View, Image, TouchableHighlight, FlatLis
 
 class EmailSectionList extends Component {
 
-
     _renderItem = ({item}) => {
       return (
+        <TouchableHighlight onPress={() => this.props.ResultScreen.props.navigation.navigate('Detail', {item: item})}>
         <View style={styles.container}>
             <Text style={styles.title}>{item.title}</Text>
             {/*add from and to here*/}
             <Text style={styles.text}>{item.date}</Text>
         </View>
+        </TouchableHighlight>
       )};
 
     render() {
       console.log('emailsectionlist')
-      console.log(this.props.ResultScreen.state.emailJson)
         return(
             <View>
             {/*<Text>{JSON.stringify(this.props.HomeScreen.state.emailJson)}</Text>*/}
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'white',
       padding: 10,
       borderBottomWidth: 1,
-      borderColor: 'grey',
+      borderColor: '#bac6d9',
     },
 
     text:{

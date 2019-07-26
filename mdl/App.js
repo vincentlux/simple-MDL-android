@@ -14,19 +14,35 @@ import HomeScreen from './pages/HomeScreen';
 import ResultScreen from './pages/ResultScreen';
 import UploadScreen from './pages/UploadScreen';
 import HelpScreen from './pages/HelpScreen';
-
+import DetailScreen from './pages/DetailScreen';
 
 import { createAppContainer, createBottomTabNavigator, createStackNavigator } from "react-navigation";
 
+
+// const EmailStack = createStackNavigator({
+//   Result: ResultScreen,
+//   Detail: DetailScreen
+// },
+// {
+//   initialRouteName: "Result",
+  
+// }
+// );
+
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
-  Result: ResultScreen
+  Result: ResultScreen,
+  Detail: DetailScreen
 },
 {
   initialRouteName: "Home",
-  headerLayoutPreset: "center" 
+  headerLayoutPreset: "center",
+  
 }
 );
+
+
+
 HomeStack.navigationOptions= { 
   header: null,
   tabBarIcon: ({ tintColor }) => (
