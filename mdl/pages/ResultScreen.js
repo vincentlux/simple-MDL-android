@@ -80,7 +80,7 @@ class ResultScreen extends Component {
             console.log(r)
             const emailForSection = r.reduce((r,s) => {
                 // r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
-                r.push({title: s.subject, id: s.id, date: s.date, data:['From:',s.from, 'To:', s.to, s.content]});
+                r.push({title: s.subject, id: s.id, date: s.date.substring(0, s.date.indexOf('T')), data:['From:',s.from, 'To:', s.to, s.content]});
                 return r;
             }, []);
             this.setState({emailJson: emailForSection}, ()=>this.setState({sectionListReady: true, numEmail: emailForSection.length}))

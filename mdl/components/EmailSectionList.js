@@ -7,8 +7,9 @@ class EmailSectionList extends Component {
     _renderItem = ({item}) => {
       return (
         <View style={styles.container}>
-        <Text style={styles.text}>{item.title}</Text>
-        <Text style={styles.text}>{item.date}</Text>
+            <Text style={styles.title}>{item.title}</Text>
+            {/*add from and to here*/}
+            <Text style={styles.text}>{item.date}</Text>
         </View>
       )};
 
@@ -31,23 +32,24 @@ class EmailSectionList extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      backgroundColor: '#F5FCFF',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      backgroundColor: 'white',
       padding: 10,
       borderBottomWidth: 1,
-      borderColor: Color.separatorColor
+      borderColor: 'grey',
     },
 
     text:{
         padding:10,
-        fontSize:14,
+        fontSize:12,
     
       },
     title:{
         padding:10,
-        fontSize:20,
-        fontWeight: 'bold'
+        fontSize:15,
+        fontWeight: 'bold',
+        color: 'black',
       }
 
 })
