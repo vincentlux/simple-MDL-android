@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight, TouchableOpacity, Modal, Alert } from 'react-native';
+import { StyleSheet, Text, View, Platform, TouchableHighlight, TouchableOpacity, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import Voice from 'react-native-voice';
 import RNFetchBlob from 'rn-fetch-blob';
+import Modal from "react-native-modal";
+
 
 class VoiceButton extends Component {
   state = {
@@ -73,7 +75,7 @@ constructor(props) {
     this.setState({
       results: e.value,
       speechRes: e.value[0],
-      modalVisible: false,
+      // modalVisible: false,
     });
     // query -> mdl query -> back to HomeScreen 
     this.queryToMDL()
@@ -90,7 +92,8 @@ constructor(props) {
     }, JSON.stringify(query)).then((res) => {
       // set mdlQuery
       this.setState({
-        mdlQuery: res.json().res_query
+        mdlQuery: res.json().res_query,
+        modalVisible: false,
       }, ()=>this.props.HomeScreen.updateSearch(this.state.mdlQuery)) // update to homescreen
 
     }).catch((err) => {
@@ -176,21 +179,21 @@ constructor(props) {
 
   _renderModal = () => {
     if (this.state.modalVisible) {
-      return (<View style={{marginTop: 22}}>
-        <Modal
-        animationType="fade"
-        transparent={false}
-        visible={this.state.modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
-        <View style={{marginTop: 22}}>
-          <View>
-            <Text>{this.state.partialResults}</Text>
-
-          </View>
-        </View>
-      </Modal>
+      return (
+        <View>
+          <Modal
+          animationIn={'slideInDown'}
+          animationOut={'slideOutUp'}
+          animationInTiming={300}
+          backdropOpacity={Platform.OS === 'android'? 0.5 : 0.7}
+          backdropTransitionOutTiming={800}
+          useNativeDriver={true}
+          isVisible={this.state.modalVisible}>
+            <View style={styles.content}>
+              <Text style={styles.listening}>Listening...</Text>
+              <Text style={styles.text}>{this.state.partialResults}</Text>
+            </View>
+        </Modal>
         
         
         </View>)
@@ -203,21 +206,6 @@ constructor(props) {
     return (
       <View>
       {/*<Text style={styles.stat}>{`Pitch: ${this.state.partialResults}`}</Text>*/}
-        {/*<Text style={styles.instructions}>Press the button and start speaking.</Text>
-        <Text style={styles.stat}>{`Started: ${this.state.started}`}</Text>
-        <Text style={styles.stat}>{`Recognized: ${this.state.recognized}`}</Text>
-        <Text style={styles.stat}>{`Pitch: ${this.state.pitch}`}</Text>
-        <Text style={styles.stat}>{`Error: ${this.state.error}`}</Text>
-    <Text style={styles.stat}>Results</Text>
-
-        {this.state.results.map((result, index) => {
-            if(index==0)
-                return (
-                    <Text key={`result-${index}`} style={styles.stat}>
-                    {result}
-                    </Text>
-                );
-        })}*/}
 
         {/*<Text style={styles.stat}>{`End: ${this.state.end}`}</Text>*/}
         <TouchableOpacity onPress={this._startRecognizing} underlayColor='rgba(227, 227, 227, 1)'>
@@ -270,6 +258,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#B0171F',
     marginBottom: 1,
+  },
+  content: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  listening: {
+    fontSize: 25,
+    textAlign: 'center',
+    margin: 10,
+    color: 'grey'
+  },
+  text: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 5,
+    color: 'grey'
   },
 });
 

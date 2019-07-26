@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, FlatList, StyleSheet, Text, View, Button, Image, TouchableOpacity, TouchableHighlight, Dimensions} from 'react-native';
+import {Platform, FlatList, StyleSheet, Text, View, Button, Image, ActivityIndicator, TouchableHighlight, Dimensions} from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob';
 import EmailSectionList from '../components/EmailSectionList';
 
@@ -103,7 +103,12 @@ class ResultScreen extends Component {
             return <EmailSectionList ResultScreen={this}/>;
         }
         else{
-            return null;
+            return (
+                <View style={styles.loadingView}>
+                  <ActivityIndicator animating={true} size="small"/>
+                </View>
+              )
+          
         }
 
     }
@@ -142,6 +147,12 @@ class ResultScreen extends Component {
     content:{
         flex:1,
       },
+    loadingView: {
+        // flex: 1,
+        // flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }
 
   });
 
