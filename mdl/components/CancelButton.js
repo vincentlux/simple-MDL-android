@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 
-import RNFetchBlob from 'rn-fetch-blob';
-
 class CancelButton extends Component {
     constructor(props) {
         super(props);

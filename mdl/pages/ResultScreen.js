@@ -5,10 +5,6 @@ import EmailSectionList from '../components/EmailSectionList';
 
 
 class ResultScreen extends Component {
-    // static navigationOptions = { 
-    //     title: 'qq',
-
-    // };
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitleStyle :{textAlign: 'center',alignSelf:'center'},
@@ -52,22 +48,6 @@ class ResultScreen extends Component {
         
     }
 
-    // getEmail = () => {
-    //     console.log(this.state.search)
-    //     const query = this.state.search
-    //     RNFetchBlob.config({
-    //       trusty : true
-    //     })
-    //     .fetch('POST', 'https://mdl.unc.edu/api/simple_rn', {
-    //       'Content-Type' : 'application/json',
-    //     }, JSON.stringify(query)).then((response) => response.json()).then(json => {
-    //         console.log(json);
-
-    //     }).catch((e) => {
-    //         console.log(e)
-    //         console.log("加载失败");
-    //       }).done();
-    // }
 
     getEmail = () =>{
         console.log(this.state.search)
@@ -112,7 +92,7 @@ class ResultScreen extends Component {
             if (!this.state.error) {
                 return (
                     <View style={styles.loadingView}>
-                      <ActivityIndicator animating={true} size="small"/>
+                      <ActivityIndicator animating={true} size="large" color="#d9d7d7"/>
                     </View>
                   )
             }
@@ -137,12 +117,8 @@ class ResultScreen extends Component {
 
   }
   
-  const width = Dimensions.get('window').width
-  const styles = StyleSheet.create({
-    // title:{
-    //     alignSelf:'stretch',
-    // },
-    
+const width = Dimensions.get('window').width
+const styles = StyleSheet.create({  
     htitle:{
         textAlign: 'center',
         color: 'black',
@@ -159,8 +135,10 @@ class ResultScreen extends Component {
     loadingView: {
         // flex: 1,
         // flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        height: '80%',
       }
 
   });

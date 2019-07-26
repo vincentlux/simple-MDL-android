@@ -5,19 +5,11 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 import VoiceButton from '../components/VoiceButton';
 import EmailSectionList from '../components/EmailSectionList';
-import ConfirmButton from '../components/ConfirmButton';
-
 
 
 class HomeScreen extends Component {
     static navigationOptions = { 
         header: null,
-        // tabBarIcon: ({ tintColor }) => (
-        //     <Image
-        //       source={require('../assets/images/m.png')}
-        //       style={[styles.icon, { tintColor: tintColor }]}
-        //     />
-        //   ), 
     };
     state = {
         search: '',
@@ -48,15 +40,12 @@ class HomeScreen extends Component {
       }
 
     updateSearchText = search => {
-        // only update text instead of triggering search automatically
-        // this.getEmail should be triggered by ConfirmButton
         this.setState({ search:search });
         console.log('updated the text')
     };
 
 
-    // idea: if update search being called, trigger api post email immediately
-    // idea: if update search being called, pass param to ResultScreen
+    // if update search being called, pass param to ResultScreen
     updateSearch = search => {
         // this.setState({ search:search },()=>this.getEmail());
         this.setState({ search:search },()=>this.props.navigation.navigate('Result',{
@@ -64,9 +53,6 @@ class HomeScreen extends Component {
             fileName: this.state.fileName
         }));
         console.log('time to search!')
-
-        // navigate to result page
-        // this.props.navigation.navigate('Result')
     };
 
     getEmail = () =>{
@@ -108,8 +94,6 @@ class HomeScreen extends Component {
 
     _renderSectionList = () =>{
         if(this.state.sectionListReady){
-            // change to email sectionlist
-            // this.props.navigation.navigate('Result')
             return <EmailSectionList HomeScreen={this}/>;
         }
         else{
@@ -124,16 +108,9 @@ class HomeScreen extends Component {
         const success = navigation.getParam('success', false);
         this.state.fileName = fileName;
     
-    
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.box}>
-
-                    {/* <Text>{fileName}</Text>*/}
-                    
-                    {/* <Text style={styles.title}> Simple MDL Search </Text>*/}
-                
-
                     <SearchBar
                     platform='android'
                     // inputStyle={{backgroundColor: 'white',borderWidth: 0, borderRadius: 10}}

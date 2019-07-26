@@ -19,16 +19,6 @@ import DetailScreen from './pages/DetailScreen';
 import { createAppContainer, createBottomTabNavigator, createStackNavigator } from "react-navigation";
 
 
-// const EmailStack = createStackNavigator({
-//   Result: ResultScreen,
-//   Detail: DetailScreen
-// },
-// {
-//   initialRouteName: "Result",
-  
-// }
-// );
-
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   Result: ResultScreen,

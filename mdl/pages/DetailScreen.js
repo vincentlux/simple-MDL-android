@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, Text, View, Button, Image, TouchableOpacity, TouchableHighlight, Dimensions} from 'react-native';
 
-
-
 class DetailScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         return {

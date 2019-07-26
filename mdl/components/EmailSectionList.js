@@ -18,13 +18,11 @@ class EmailSectionList extends Component {
       console.log('emailsectionlist')
         return(
             <View>
-            {/*<Text>{JSON.stringify(this.props.HomeScreen.state.emailJson)}</Text>*/}
-
-            <FlatList
-            data={this.props.ResultScreen.state.emailJson}
-            renderItem={this._renderItem}
-            keyExtractor={(item) => item.id.toString()}
-            />
+              <FlatList
+              data={this.props.ResultScreen.state.emailJson}
+              renderItem={this._renderItem}
+              keyExtractor={(item) => item.id.toString()}
+              />
             </View>   
         )}
 
@@ -37,7 +35,8 @@ const styles = StyleSheet.create({
       backgroundColor: 'white',
       padding: 10,
       borderBottomWidth: 1,
-      borderColor: '#bac6d9',
+      // borderColor: '#bac6d9',
+      borderColor: '#e8e9eb',
     },
 
     text:{
