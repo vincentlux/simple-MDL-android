@@ -48,6 +48,22 @@ class ResultScreen extends Component {
         
     }
 
+    // getEmail = () => {
+    //     console.log(this.state.search)
+    //     const query = this.state.search
+    //     RNFetchBlob.config({
+    //       trusty : true
+    //     })
+    //     .fetch('POST', 'https://mdl.unc.edu/api/simple_rn', {
+    //       'Content-Type' : 'application/json',
+    //     }, JSON.stringify(query)).then((response) => response.json()).then(json => {
+    //         console.log(json);
+
+    //     }).catch((e) => {
+    //         console.log(e)
+    //         console.log("加载失败");
+    //       }).done();
+    // }
 
     getEmail = () =>{
         console.log(this.state.search)
@@ -61,15 +77,18 @@ class ResultScreen extends Component {
           'Content-Type' : 'application/json',
         }, JSON.stringify(query)).then((r) => r.json())
         .then(r => {
-            const emailForSection = r.reduce((r,s) =>{
-                r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
+            console.log(r)
+            const emailForSection = r.reduce((r,s) => {
+                // r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
+                r.push({title: s.subject, id: s.id, date: s.date, data:['From:',s.from, 'To:', s.to, s.content]});
                 return r;
             }, []);
             this.setState({emailJson: emailForSection}, ()=>this.setState({sectionListReady: true, numEmail: emailForSection.length}))
+            console.log(this.state.emailJson)
             console.log(this.state.sectionListReady)
             console.log(this.state.numEmail)
         })
-        .then( r => {this.props.navigation.setParams({ numEmail: this.state.numEmail })})
+        .then(r => {this.props.navigation.setParams({ numEmail: this.state.numEmail })})
         .catch((err) => {
           console.log(err)
           this.props.navigation.setParams({ numEmail: 0 })
@@ -91,7 +110,6 @@ class ResultScreen extends Component {
 
     }
     render() {
-
         // get query from HomeScreen
         const { navigation } = this.props;
         const search = navigation.getParam('search', '');
