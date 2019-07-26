@@ -32,6 +32,7 @@ class ResultScreen extends Component {
         emailJson: '',
         numEmail: 0,
         sectionListReady: false,
+        error: false,
     };
 
     componentDidMount(){
@@ -89,6 +90,7 @@ class ResultScreen extends Component {
         .then(r => {this.props.navigation.setParams({ numEmail: this.state.numEmail })})
         .catch((err) => {
           console.log(err)
+          this.setState({error: true})
           this.props.navigation.setParams({ numEmail: 0 })
         })
     }
@@ -103,11 +105,14 @@ class ResultScreen extends Component {
             return <EmailSectionList ResultScreen={this}/>;
         }
         else{
-            return (
-                <View style={styles.loadingView}>
-                  <ActivityIndicator animating={true} size="small"/>
-                </View>
-              )
+            if (!this.state.error) {
+                return (
+                    <View style={styles.loadingView}>
+                      <ActivityIndicator animating={true} size="small"/>
+                    </View>
+                  )
+            }
+
           
         }
 

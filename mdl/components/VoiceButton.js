@@ -177,6 +177,18 @@ constructor(props) {
     });
   };
 
+  _renderText = () => {
+    // console.log(this.state.partialResults)
+    if (this.state.partialResults.length == 0) {
+      return (
+        <Text style={styles.listening}>Listening...</Text>
+      )
+    }
+    return (
+      <Text style={styles.text}>{this.state.partialResults}</Text>
+    );
+    // (this.state.partialResults!=[])?<Text style={styles.text}>{this.state.partialResults}</Text>:<Text style={styles.listening}>Listening...</Text>
+  };
   _renderModal = () => {
     if (this.state.modalVisible) {
       return (
@@ -190,8 +202,7 @@ constructor(props) {
           useNativeDriver={true}
           isVisible={this.state.modalVisible}>
             <View style={styles.content}>
-              <Text style={styles.listening}>Listening...</Text>
-              <Text style={styles.text}>{this.state.partialResults}</Text>
+              {this._renderText()}
             </View>
         </Modal>
         
@@ -262,22 +273,21 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: 'white',
     padding: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
   listening: {
     fontSize: 25,
-    textAlign: 'center',
-    margin: 10,
-    color: 'grey'
+    textAlign: 'left',
+    margin: 40,
+    color: 'black'
   },
   text: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 5,
-    color: 'grey'
+    fontSize: 23,
+    textAlign: 'left',
+    justifyContent: 'flex-start',
+    margin: 40,
+    color: 'black'
   },
 });
 
