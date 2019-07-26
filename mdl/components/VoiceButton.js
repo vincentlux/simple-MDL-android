@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight, TouchableOpacity, Modal, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import Voice from 'react-native-voice';
@@ -15,7 +15,8 @@ class VoiceButton extends Component {
     results: [],
     partialResults: [],
     speechRes: '',
-    mdlQuery: ''
+    mdlQuery: '',
+    modalVisible: false,
   };
 
 
@@ -36,9 +37,10 @@ constructor(props) {
   }
 
   onSpeechStart = e => {
-    // console.log('onSpeechStart: ', e);
+    console.log('onSpeechStart: ', e);
     this.setState({
       started: '√',
+      modalVisible: true,
     });
   };
 
@@ -53,6 +55,7 @@ constructor(props) {
     console.log('onSpeechEnd: ', e);
     this.setState({
       end: '√',
+      
     });
   };
 
@@ -70,6 +73,7 @@ constructor(props) {
     this.setState({
       results: e.value,
       speechRes: e.value[0],
+      modalVisible: false,
     });
     // query -> mdl query -> back to HomeScreen 
     this.queryToMDL()
@@ -169,9 +173,36 @@ constructor(props) {
       end: '',
     });
   };
+
+  _renderModal = () => {
+    if (this.state.modalVisible) {
+      return (<View style={{marginTop: 22}}>
+        <Modal
+        animationType="fade"
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}>
+        <View style={{marginTop: 22}}>
+          <View>
+            <Text>{this.state.partialResults}</Text>
+
+          </View>
+        </View>
+      </Modal>
+        
+        
+        </View>)
+
+      
+    }
+
+  };
   render() {
     return (
       <View>
+      {/*<Text style={styles.stat}>{`Pitch: ${this.state.partialResults}`}</Text>*/}
         {/*<Text style={styles.instructions}>Press the button and start speaking.</Text>
         <Text style={styles.stat}>{`Started: ${this.state.started}`}</Text>
         <Text style={styles.stat}>{`Recognized: ${this.state.recognized}`}</Text>
@@ -198,15 +229,8 @@ constructor(props) {
         />
           {/*<Image style={styles.button} source={require('../assets/images/large.png')} />*/}
         </TouchableOpacity>
-        {/*<TouchableHighlight onPress={this._stopRecognizing}>
-          <Text style={styles.action}>Stop Recognizing</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this._cancelRecognizing}>
-          <Text style={styles.action}>Cancel</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this._destroyRecognizer}>
-          <Text style={styles.action}>Destroy</Text>
-      </TouchableHighlight>*/}
+
+        {this._renderModal()}
       </View>
     );
   }

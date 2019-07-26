@@ -41,24 +41,10 @@ class HomeScreen extends Component {
         }).catch((err) => {
             console.log(err)
         })
-
-        // add keyboard listener
-        // change to onsubmit 
-        // this.keyboardDidHideListener = Keyboard.addListener(
-        //     'keyboardDidHide',
-        //     this._keyboardDidHide.bind(this),
-        // );
-
     }
 
     _keyboardDidHide() {
         console.log('keyboard hidden')
-        // time to trigger 'confirm button'
-        // if(this.state.search==''){
-        //     this.setState({search: "?LAST 3 EMAIL 'Michael'"})
-        // }
-        // console.log(this.state.search)
-        // this.updateSearch(this.state.search)
       }
 
     updateSearchText = search => {
@@ -169,20 +155,6 @@ class HomeScreen extends Component {
                     <View style={styles.behind}>
                         <VoiceButton HomeScreen={this}/>
                     </View>
-
-                    {/* 
-                    <View style={styles.confirmButton}>
-                    <ConfirmButton HomeScreen={this}/>
-                    </View>
-                    */}
-
-
-
-                {/*<View style={styles.content}> 
-                    {this._renderSectionList()}
-                </View>*/}
-            
-
             </View>
             </TouchableWithoutFeedback>
         );

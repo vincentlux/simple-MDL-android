@@ -15,7 +15,7 @@ class HelpScreen extends React.Component {
     };
     render() {
       return (
-        <Text>?ON "Soccer" => All emails containing "soccer" at either header or subject{"\n\n"}
+        <Text style={styles.body}>?ON "Soccer" => All emails containing "soccer" at either header or subject{"\n\n"}
         ?ON "Soccer" full => Same as ?ON "Soccer"{"\n\n"}
         ?ON "Soccer" subject => All emails containing "soccer" only at subject{"\n\n"}
         ?"mike" => All emails from Mike{"\n\n"}
@@ -54,6 +54,9 @@ title: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+},
+body: {
+  color: 'black',
 },
 icon: {
   width: 30,
