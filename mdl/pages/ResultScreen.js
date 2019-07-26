@@ -21,7 +21,7 @@ class ResultScreen extends Component {
                 <Text
                 adjustsFontSizeToFit
                 numberOfLines={4}
-                style={styles.stitle}>{navigation.getParam('numEmail')} emails found.</Text>
+                style={styles.stitle}>{navigation.getParam('headerNumEmail')}</Text>
                 </View>
             )
         }
@@ -33,6 +33,7 @@ class ResultScreen extends Component {
         numEmail: 0,
         sectionListReady: false,
         error: false,
+        headerNumEmail: 'searching...',
     };
 
     componentDidMount(){
@@ -42,10 +43,12 @@ class ResultScreen extends Component {
         const search = navigation.getParam('search', '');
         const fileName = navigation.getParam('fileName', 'Enron Dataset');
         console.log(search)
+        this.props.navigation.setParams({ headerNumEmail: 'searching...'})
         this.setState({search: search}, ()=>this.getEmail())
 
         // this.props.navigation.setParams({ numEmail: this.state.numEmail });
         console.log(this.state.emailJson.length)
+        
         
     }
 
@@ -87,11 +90,12 @@ class ResultScreen extends Component {
             console.log(this.state.sectionListReady)
             console.log(this.state.numEmail)
         })
-        .then(r => {this.props.navigation.setParams({ numEmail: this.state.numEmail })})
+        .then(r => {this.props.navigation.setParams({ headerNumEmail: this.state.numEmail.toString()+ ' emails found.'})})
         .catch((err) => {
           console.log(err)
           this.setState({error: true})
           this.props.navigation.setParams({ numEmail: 0 })
+          
         })
     }
 

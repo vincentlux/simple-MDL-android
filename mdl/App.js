@@ -47,7 +47,7 @@ HomeStack.navigationOptions= {
   header: null,
   tabBarIcon: ({ tintColor }) => (
       <Image
-        source={require('./assets/images/m.png')}
+        source={require('./assets/images/magnify.png')}
         style={[styles.icon, { tintColor: tintColor }]}
       />
     ), 
@@ -55,12 +55,12 @@ HomeStack.navigationOptions= {
 
 
 const RootStack = createBottomTabNavigator({
-  MDL: HomeStack,
+  Search: HomeStack,
   Upload: UploadScreen,
   Help: HelpScreen
 },
 {
-  initialRouteName: "MDL"
+  initialRouteName: "Search"
 }
 );
 

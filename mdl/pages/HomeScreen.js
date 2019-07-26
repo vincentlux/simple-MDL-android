@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {Platform, StyleSheet, Text, Image, ImageBackground, View, Button, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import RNFetchBlob from 'rn-fetch-blob';
 
@@ -155,14 +155,25 @@ class HomeScreen extends Component {
                     <View style={styles.behind}>
                         <VoiceButton HomeScreen={this}/>
                     </View>
+                    <View style={styles.imageContainer}>
+                    <Image
+                    style={styles.image}
+                    source={require('../assets/images/m.png')}>
+                    </Image>
+                    <Text style={styles.logoText}>MDL Search</Text>
+                </View>
+
             </View>
+
+
+
             </TouchableWithoutFeedback>
         );
         }
 }
 const styles = StyleSheet.create({
     box: {
-        flex: 1,
+        flex: 2,
         flexDirection:'column',
         // backgroundColor: '#F5FCFF',
     },
@@ -193,10 +204,24 @@ const styles = StyleSheet.create({
         margin: 10,
         color: '#673AB7'
     },
-    icon: {
-        width: 30,
-        height: 26,
+    image: {
+        tintColor: '#d9d7d7'
       },
+    imageContainer: {        
+        // width: '100%',
+        // height: '100%',
+        // flex: 2,
+        // justifyContent: 'space-around',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // top: '50%',
+        height: '80%',
+    },
+    logoText: {
+        fontSize: 32,
+        color: '#d9d7d7',
+    }
 });
 
 export default HomeScreen;
