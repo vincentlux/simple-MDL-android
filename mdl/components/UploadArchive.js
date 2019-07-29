@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
         margin: 10,
       },
       text: {
-        color: '#673AB7',
+        color: '#1078e0',
         fontSize: 20,
       },
       textBlack: {
