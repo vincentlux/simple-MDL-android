@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button,Image, TouchableOpacity, TouchableHighlight} from 'react-native';
-import { WebView } from 'react-native-webview';
-// import {WebView} from 'react-native';
-
+import {ScrollView, Platform, StyleSheet, Text, View, Button,Image, TouchableOpacity, TouchableHighlight} from 'react-native';
 
 class HelpScreen extends React.Component {
     static navigationOptions = { header: null,
@@ -15,6 +12,7 @@ class HelpScreen extends React.Component {
     };
     render() {
       return (
+        <ScrollView>
         <Text style={styles.body}>?ON "Soccer" => All emails containing "soccer" at either header or subject{"\n\n"}
         ?ON "Soccer" full => Same as ?ON "Soccer"{"\n\n"}
         ?ON "Soccer" subject => All emails containing "soccer" only at subject{"\n\n"}
@@ -25,9 +23,12 @@ class HelpScreen extends React.Component {
         ?LAST 1 month EMAIL 'Drake' => Email in last month from Drake{"\n\n"}
         ?LAST EMAIL 'Drake' 'Jim' => Latest email from either Drake or Jim{"\n\n"}
         ?LAST 1 EMAIL 'Drake' => Latest email from Drake{"\n\n"}
+        ?DATE '06-20-2000' => All emails on date June 20th, 2000{"\n\n"}
+        ?DATE FROM '06-20-2000' TO '06-21-2000' => All emails between June 20th-21st, 2000{"\n\n"}
         ?TOTAL => All emails{"\n\n"}
         ?'Mike' ON 'Soccer' MSWORD LAST => Latest email from Mike with soccer at header and MSWORD appeared in the email{"\n\n"}
         </Text>
+        </ScrollView>
         
       );
     }

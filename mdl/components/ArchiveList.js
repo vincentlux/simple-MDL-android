@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,Button, FlatList, Text, View, Image, TouchableHighlight } from 'react-native';
+import { StyleSheet,Button, FlatList, Text, View, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob';
 
 
@@ -13,10 +13,14 @@ class ArchiveList extends Component {
         const {archive} = this.props;
         console.log(archive)
         console.log('should rn fetch put here? or set')
-        RNFetchBlob.config({
+
+        // Hardcode
+        if (archive.title === 'Archive') {
+          const real_title = 'Enron Dataset'
+          RNFetchBlob.config({
             trusty : true
           })
-          .fetch('PUT', `https://mdl.unc.edu/api/file_list/${archive.title}`)
+          .fetch('PUT', `https://mdl.unc.edu/api/file_list/${real_title}`)
           .then((res) => {
             console.log('put succeed!')
             console.log(res)
@@ -26,9 +30,18 @@ class ArchiveList extends Component {
           
         console.log(archive.title)
         this.props.navigation.navigate('Home', {
-            fileName: archive.title,
+            fileName: real_title,
             success: true,
           })
+        } else {
+          console.log(archive.title)
+          this.props.navigation.navigate('Home', {
+            fileName: 'Inbox',
+            success: true,
+          })
+        }
+
+
     }
 
     // deleteArchive = () =>{
@@ -70,18 +83,17 @@ class ArchiveList extends Component {
     render() {        
         const {archive} = this.props;
         return (
-          <TouchableHighlight>
             <View>
-              <View>
+              <View style={styles.container}>
                 <Text style={styles.title} >{archive.title}</Text>
-                <Button
-                title="Apply"
+                <TouchableOpacity 
                 onPress={this.applyArchive}
-                />
+                style={styles.button}>
+                  <Text>Select</Text>
+                </TouchableOpacity>
               {/*{this._renderDeleteButton()} */}
               </View>
             </View>
-          </TouchableHighlight>
         )
       }
 }
@@ -90,27 +102,30 @@ class ArchiveList extends Component {
 const styles = StyleSheet.create({
     container: {
       flexDirection: 'row',
-      justifyContent: 'center',
-      backgroundColor: '#F5FCFF',
-      padding: 10,
+      justifyContent: 'space-between',
+      backgroundColor: 'white',
+      padding: 15,
+      alignContent: 'stretch',
       borderBottomWidth: 1,
+      // borderColor: '#bac6d9',
+      borderColor: '#e8e9eb',
     },
-    thumbnail: {
-      width: 110,
-      height: 150,
-      backgroundColor: '#f0f0f0',
-    },
-    rightContainer: {
-      flex: 1,
-      paddingLeft: 10,
-      paddingTop: 5,
-      paddingBottom: 5
+    button: {
+      backgroundColor: '#DDDDDD',
+      padding: 15,
+      borderRadius:5,
+
     },
     title: {
-      fontSize: 14,
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'center',
+      fontSize: 20,
       fontWeight: 'bold',
       color: '#333333',
       textAlign: 'left',
+      // justifyContent: 'space-around'
     },
     year: {
       textAlign: 'left',

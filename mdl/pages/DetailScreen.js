@@ -9,11 +9,11 @@ class DetailScreen extends Component {
                 <View style={styles.content}>
                 <Text
                 adjustsFontSizeToFit
-                numberOfLines={3}
+                numberOfLines={1}
                 style={styles.htitle}>{navigation.getParam('item').title}</Text>
                 <Text
                 adjustsFontSizeToFit
-                numberOfLines={4}
+                // numberOfLines={4}
                 style={styles.stitle}>{navigation.getParam('item').date}</Text>
                 </View>
             )
@@ -43,13 +43,15 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
     //   justifyContent: 'flex-start',
       padding: 10,
+      flex:1
     },
     htitle: {
         textAlign: 'center',
+        alignSelf: 'center',
         color: 'black',
         fontWeight: 'bold',
         fontSize: 0.039*width,
-        flex: 1
+        // flex: 1
       },
     stitle: {
         textAlign: 'center',

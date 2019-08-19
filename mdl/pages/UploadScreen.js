@@ -19,8 +19,8 @@ class UploadScreen extends Component {
       this.state = {
         // Hardcode
         fileList: [
-          {corename: "pubmed", read: false, title: "Personal Mailbox"},
-          {corename: "mdl", read: false, title: "Enron Dataset"}
+          {corename: "pubmed", read: false, title: "Inbox"},
+          {corename: "mdl", read: false, title: "Archive"}
         ]
       };
     }
@@ -95,9 +95,9 @@ class UploadScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      // flex: 1,
+      // justifyContent: 'center',
+      // alignItems: 'center',
       // backgroundColor: '#F5FCFF',
     },
     title: {
