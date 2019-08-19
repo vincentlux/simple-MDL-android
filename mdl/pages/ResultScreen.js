@@ -74,7 +74,7 @@ class ResultScreen extends Component {
         .catch((err) => {
           console.log(err)
           this.setState({error: true})
-          this.props.navigation.setParams({ numEmail: 0 })
+          this.props.navigation.setParams({ numEmail: 0, headerNumEmail: 'Error' })
           
         })
     }
