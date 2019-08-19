@@ -17,13 +17,17 @@ class UploadScreen extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        fileList: [],
+        // Hardcode
+        fileList: [
+          {corename: "pubmed", read: false, title: "Personal Mailbox"},
+          {corename: "mdl", read: false, title: "Enron Dataset"}
+        ]
       };
     }
     componentDidMount() {
       console.log('did mount')
       console.log(this.state.fileList)
-      this.loadArchiveList();
+      // this.loadArchiveList();
     }
     // componentDidUpdate() {
     //   console.log('did update')
@@ -47,7 +51,7 @@ class UploadScreen extends Component {
             keyExtractor={(item, index) => index.toString()}
           /> 
           
-          <UploadArchive UploadScreen={this}/>
+      {/*<UploadArchive UploadScreen={this}/> */}
 
           {/*<Button
             title="Apply"

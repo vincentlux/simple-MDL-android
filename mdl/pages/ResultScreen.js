@@ -39,8 +39,9 @@ class ResultScreen extends Component {
         const search = navigation.getParam('search', '');
         const fileName = navigation.getParam('fileName', 'Enron Dataset');
         console.log(search)
+        console.log(fileName)
         this.props.navigation.setParams({ headerNumEmail: 'searching...'})
-        this.setState({search: search}, ()=>this.getEmail())
+        this.setState({search: search, fileName: fileName}, ()=>this.getEmail())
 
         // this.props.navigation.setParams({ numEmail: this.state.numEmail });
         console.log(this.state.emailJson.length)
@@ -50,33 +51,67 @@ class ResultScreen extends Component {
 
 
     getEmail = () =>{
-        console.log(this.state.search)
-        // console.log(this.state.fileName)
-        // call simple here to search
-        const query = {'query': this.state.search}
-        RNFetchBlob.config({
-          trusty : true
-        })
-        .fetch('POST', 'https://mdl.unc.edu/api/simple_rn', {
-          'Content-Type' : 'application/json',
-        }, JSON.stringify(query)).then((r) => r.json())
-        .then(r => {
-            const emailForSection = r.reduce((r,s) => {
-                // r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
-                r.push({title: s.subject, id: s.id, date: s.date.substring(0, s.date.indexOf('T')), data:['From:',s.from, 'To:', s.to, s.content]});
-                return r;
-            }, []);
-            this.setState({emailJson: emailForSection}, ()=>this.setState({sectionListReady: true, numEmail: emailForSection.length}))
-            console.log(this.state.sectionListReady)
-            console.log(this.state.numEmail)
-        })
-        .then(r => {this.props.navigation.setParams({ headerNumEmail: this.state.numEmail.toString()+ ' emails found.'})})
-        .catch((err) => {
-          console.log(err)
-          this.setState({error: true})
-          this.props.navigation.setParams({ numEmail: 0, headerNumEmail: 'Error' })
-          
-        })
+        
+        if (this.state.fileName === 'Enron Dataset') {
+          // call simple here to search
+          const query = {'query': this.state.search}
+          RNFetchBlob.config({
+            trusty : true
+          })
+          .fetch('POST', 'https://mdl.unc.edu/api/simple_rn', {
+            'Content-Type' : 'application/json',
+          }, JSON.stringify(query)).then((r) => r.json())
+          .then(r => {
+              console.log(r)
+              const emailForSection = r.reduce((r,s) => {
+                  // r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
+                  r.push({title: s.subject, id: s.id, date: s.date.substring(0, s.date.indexOf('T')), data:['From:',s.from, 'To:', s.to, s.content]});
+                  return r;
+              }, []);
+              this.setState({emailJson: emailForSection}, ()=>this.setState({sectionListReady: true, numEmail: emailForSection.length}))
+              console.log(this.state.sectionListReady)
+              console.log(this.state.numEmail)
+          })
+          .then(r => {this.props.navigation.setParams({ headerNumEmail: this.state.numEmail.toString()+ ' emails found.'})})
+          .catch((err) => {
+            console.log(err)
+            this.setState({error: true})
+            this.props.navigation.setParams({ numEmail: 0, headerNumEmail: 'Error' })
+          })
+        } else {
+          // call AWS api gateway
+          console.log(this.state.fileName)
+          console.log(this.state.search)
+          var searchTerm = this.state.search
+          var url = `https://as8vcs0ct3.execute-api.us-east-1.amazonaws.com/v1/search?search_key=${searchTerm}`;
+          RNFetchBlob.config({
+            trusty : true
+          })
+          .fetch('GET', url)
+          .then((r) => r.json())
+          .then(r => {
+              console.log(r.body)
+              const emailForSection = r.body.reduce((r,s) => {
+                  // r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
+                  if (s.ArticleTitleArticleTitle !== "") {
+                    r.push({title: s.ArticleTitleArticleTitle, data:[s.Abstract], id: new Date().getUTCMilliseconds()});
+                  }
+                  return r;
+              }, []);
+              console.log(emailForSection)
+              this.setState({emailJson: emailForSection}, ()=>this.setState({sectionListReady: true, numEmail: emailForSection.length}))
+              console.log(this.state.sectionListReady)
+              console.log(this.state.numEmail)
+          })
+          .then(r => {this.props.navigation.setParams({ headerNumEmail: this.state.numEmail.toString()+ ' emails found.'})})
+          .catch((err) => {
+            console.log(err)
+            this.setState({error: true})
+            this.props.navigation.setParams({ numEmail: 0, headerNumEmail: 'Error' })
+          })
+        }
+
+
     }
 
 

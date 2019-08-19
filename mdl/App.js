@@ -46,7 +46,7 @@ HomeStack.navigationOptions= {
 
 const RootStack = createBottomTabNavigator({
   Search: HomeStack,
-  Upload: UploadScreen,
+  Archive: UploadScreen,
   Help: HelpScreen
 },
 {

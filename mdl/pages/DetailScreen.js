@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontWeight: 'bold',
         fontSize: 0.039*width,
+        flex: 1
       },
     stitle: {
         textAlign: 'center',

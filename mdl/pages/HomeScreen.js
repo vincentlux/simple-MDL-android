@@ -45,7 +45,7 @@ class HomeScreen extends Component {
     };
 
 
-    // if update search being called, pass param to ResultScreen
+    // if update search being called, pass param to ResultScreen instead of calling getEmail method
     updateSearch = search => {
         // this.setState({ search:search },()=>this.getEmail());
         this.setState({ search:search },()=>this.props.navigation.navigate('Result',{
@@ -107,6 +107,7 @@ class HomeScreen extends Component {
         const fileName = navigation.getParam('fileName', 'Enron Dataset');
         const success = navigation.getParam('success', false);
         this.state.fileName = fileName;
+        console.log(this.state.fileName)
     
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

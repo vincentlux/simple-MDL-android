@@ -23,50 +23,49 @@ class ArchiveList extends Component {
           }).catch((err) => {
             console.log(err)
           })
-
-        this.props.navigation.navigate('MDL', {
+          
+        console.log(archive.title)
+        this.props.navigation.navigate('Home', {
             fileName: archive.title,
             success: true,
           })
     }
 
-    deleteArchive = () =>{
-        const {archive} = this.props;
-        console.log(archive)
-        RNFetchBlob.config({
-            trusty : true
-          })
-          .fetch('PUT', `https://mdl.unc.edu/api/delete_file/${archive.title}`)
-          .then((res) => {
-            console.log('delete succeed!')
-            console.log(res)
-          }).then(()=>{
-            this.props.UploadScreen.loadArchiveList()
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+    // deleteArchive = () =>{
+    //     const {archive} = this.props;
+    //     console.log(archive)
+    //     RNFetchBlob.config({
+    //         trusty : true
+    //       })
+    //       .fetch('PUT', `https://mdl.unc.edu/api/delete_file/${archive.title}`)
+    //       .then((res) => {
+    //         console.log('delete succeed!')
+    //         console.log(res)
+    //       }).then(()=>{
+    //         this.props.UploadScreen.loadArchiveList()
+    //       })
+    //       .catch((err) => {
+    //         console.log(err)
+    //       })
+    // }
 
-    }
-
-    _renderDeleteButton = () =>{
-        const {archive} = this.props;
-        // ensure demo not deleted
-        if (archive.title != 'Enron Dataset'){
-            return (
-                <Button
-                title="Delete"
-                // color='#dd1e18'
-                color='#f4a609'
-                onPress={this.deleteArchive}
-                />
-            );
-        }
-        else{
-            return null;
-        }
-
-    }
+    // _renderDeleteButton = () =>{
+    //     const {archive} = this.props;
+    //     // ensure demo not deleted
+    //     if (archive.title != 'Enron Dataset'){
+    //         return (
+    //             <Button
+    //             title="Delete"
+    //             // color='#dd1e18'
+    //             color='#f4a609'
+    //             onPress={this.deleteArchive}
+    //             />
+    //         );
+    //     }
+    //     else{
+    //         return null;
+    //     }
+    // }
 
     render() {        
         const {archive} = this.props;
@@ -79,7 +78,7 @@ class ArchiveList extends Component {
                 title="Apply"
                 onPress={this.applyArchive}
                 />
-                {this._renderDeleteButton()}
+              {/*{this._renderDeleteButton()} */}
               </View>
             </View>
           </TouchableHighlight>
