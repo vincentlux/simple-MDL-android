@@ -18,7 +18,12 @@ import DetailScreen from './pages/DetailScreen';
 
 import { createAppContainer, createBottomTabNavigator, createStackNavigator } from "react-navigation";
 
-
+/* HomeStack belongs "Search" tab (the intial tab)
+ * renders as such: 
+ * |HomeScreen|
+ * |Result|
+ * |Detail|
+ */
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   Result: ResultScreen,
@@ -43,7 +48,12 @@ HomeStack.navigationOptions= {
     ), 
 };
 
-
+/* RootStack is the bottom tab
+ * renders as: |Search|Upload|Help|
+ * with "Search" as the initial tab
+ *  +++++
+ * |Search|Upload|Help|
+ */
 const RootStack = createBottomTabNavigator({
   Search: HomeStack,
   Upload: UploadScreen,
