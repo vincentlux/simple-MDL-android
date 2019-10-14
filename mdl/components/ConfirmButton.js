@@ -43,7 +43,7 @@ class ConfirmButton extends Component {
         return (
             <View>
                 <TouchableOpacity underlayColor='rgba(227, 227, 227, 1)' onPress={this.sendQuery}>
-                <Image style={styles.button} source={require('../assets/images/check.png')} />
+	                <Image style={styles.button} source={require('../assets/images/check.png')} />
                 </TouchableOpacity>
 
             </View>

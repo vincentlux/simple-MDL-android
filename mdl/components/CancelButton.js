@@ -14,7 +14,7 @@ class CancelButton extends Component {
         return (
             <View>
                 <TouchableHighlight underlayColor='rgba(227, 227, 227, 1)'>
-                <Image style={styles.button} source={require('../assets/images/refresh.png')} />
+	                <Image style={styles.button} source={require('../assets/images/refresh.png')} />
                 </TouchableHighlight>
 
             </View>
