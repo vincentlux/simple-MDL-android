@@ -1,3 +1,5 @@
+/* This screen displays help information
+ */
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button,Image, TouchableOpacity, TouchableHighlight} from 'react-native';
 import { WebView } from 'react-native-webview';

@@ -1,3 +1,4 @@
+/*This screen displays the email result lists returned by the search*/
 import React, {Component} from 'react';
 import {
   Platform,

@@ -1,3 +1,5 @@
+/* This screen is for uploading datasets
+ */
 import React, {Component} from 'react';
 import {
   Platform,

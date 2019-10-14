@@ -1,3 +1,5 @@
+/* This screen displays the detailed content of email after clicking on one of the email search results
+ */
 import React, {Component} from 'react';
 import {
   ScrollView,

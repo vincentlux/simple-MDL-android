@@ -1,3 +1,6 @@
+/* This is the home screen for searching 
+ * (displays a search bar and a voice button on the screen top)
+ */
 import React, {Component} from 'react';
 import {
   Platform,
@@ -14,7 +17,6 @@ import {SearchBar} from 'react-native-elements';
 import RNFetchBlob from 'rn-fetch-blob';
 
 import VoiceButton from '../components/VoiceButton';
-import EmailSectionList from '../components/EmailSectionList';
 
 class HomeScreen extends Component {
   static navigationOptions = {
