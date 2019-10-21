@@ -34,17 +34,26 @@ class DetailScreen extends Component {
   }
   render() {
     const item = this.props.navigation.getParam('item');
+    // this renders the details of the selected email
+    const email = {
+      from: item.data[0], // "from" keyword
+      fromAddr: item.data[1],
+      to: item.data[2], // "to" keyword
+      toAddr: item.data[3],
+      contentAndClosing: item.data[4], // include main content, sign-off, and probably original emails in replying emails
+    };
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.text}>{item.data[0]}</Text>
-        <Text style={styles.text}>{item.data[1]}</Text>
-        <Text style={styles.text}>{item.data[2]}</Text>
-        <Text style={styles.text}>{item.data[3]}</Text>
-        <Text style={styles.body}>{item.data[4]}</Text>
+        <Text style={styles.text}>{email.from}</Text>
+        <Text style={styles.text}>{email.fromAddr}</Text>
+        <Text style={styles.text}>{email.to}</Text>
+        <Text style={styles.text}>{email.toAddr}</Text>
+        <Text style={styles.body}>{email.contentAndClosing}</Text>
       </ScrollView>
     );
   }
 }
+
 const width = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
