@@ -75,41 +75,41 @@ class HomeScreen extends Component {
     console.log('time to search!');
   };
 
-  getEmail = () => {
-    console.log(this.state.search);
-    console.log(this.state.fileName);
-    /* call simple here to search */
-    const query = {query: this.state.search};
-    RNFetchBlob.config({
-      trusty: true,
-    })
-      .fetch(
-        'POST',
-        'https://mdl.unc.edu/api/simple_rn',
-        {
-          'Content-Type': 'application/json',
-        },
-        JSON.stringify(query),
-      )
-      .then(r => r.json())
-      .then(r => {
-        const emailForSection = r.reduce((r, s) => {
-          r.push({
-            title: s.subject,
-            data: [s.date, 'From:', s.from, 'To:', s.to, s.content],
-          });
-          return r;
-        }, []);
-		/* update emailJson and sectionListReady here*/
-        this.setState({emailJson: emailForSection}, () =>
-          this.setState({sectionListReady: true}),
-        );
-        console.log(this.state.sectionListReady);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+//  getEmail = () => {
+//    console.log(this.state.search);
+//    console.log(this.state.fileName);
+//    /* call simple here to search */
+//    const query = {query: this.state.search};
+//    RNFetchBlob.config({
+//      trusty: true,
+//    })
+//      .fetch(
+//        'POST',
+//        'https://mdl.unc.edu/api/simple_rn',
+//        {
+//          'Content-Type': 'application/json',
+//        },
+//        JSON.stringify(query),
+//      )
+//      .then(r => r.json())
+//      .then(r => {
+//        const emailForSection = r.reduce((r, s) => {
+//          r.push({
+//            title: s.subject,
+//            data: [s.date, 'From:', s.from, 'To:', s.to, s.content],
+//          });
+//          return r;
+//        }, []);
+//		/* update emailJson and sectionListReady here*/
+//        this.setState({emailJson: emailForSection}, () =>
+//          this.setState({sectionListReady: true}),
+//        );
+//        console.log(this.state.sectionListReady);
+//      })
+//      .catch(err => {
+//        console.log(err);
+//      });
+//  };
 
   handleEditComplete = () => {
     console.log('submitted');

@@ -59,8 +59,7 @@ class ResultScreen extends Component {
 
   getEmail = () => {
     console.log(this.state.search);
-    // console.log(this.state.fileName)
-    // call simple here to search
+    /* call simple here to search */
     const query = {query: this.state.search};
     RNFetchBlob.config({
       trusty: true,
