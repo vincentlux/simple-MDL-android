@@ -19,6 +19,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import VoiceButton from '../components/VoiceButton';
 
 class HomeScreen extends Component {
+  /* configure header */
   static navigationOptions = {
     header: null,
   };
@@ -32,7 +33,7 @@ class HomeScreen extends Component {
   componentDidMount() {
     console.log('home screen did mount');
 
-    // reset solr at the start
+    /* reset solr at the start */
     const query = {query: 'reset'};
     RNFetchBlob.config({
       trusty: true,
@@ -62,7 +63,7 @@ class HomeScreen extends Component {
     console.log('updated the text');
   };
 
-  // if update search being called, pass param to ResultScreen
+  /* if update search being called, pass param to ResultScreen */
   updateSearch = search => {
     // this.setState({ search:search },()=>this.getEmail());
     this.setState({search: search}, () =>
@@ -77,7 +78,7 @@ class HomeScreen extends Component {
   getEmail = () => {
     console.log(this.state.search);
     console.log(this.state.fileName);
-    // call simple here to search
+    /* call simple here to search */
     const query = {query: this.state.search};
     RNFetchBlob.config({
       trusty: true,
@@ -99,6 +100,7 @@ class HomeScreen extends Component {
           });
           return r;
         }, []);
+		/* update emailJson and sectionListReady here*/
         this.setState({emailJson: emailForSection}, () =>
           this.setState({sectionListReady: true}),
         );
@@ -111,26 +113,17 @@ class HomeScreen extends Component {
 
   handleEditComplete = () => {
     console.log('submitted');
-    if (this.state.search == '') {
+    if (this.state.search == '') { /* default search */
       console.log('empty');
       this.setState({search: "?LAST 3 EMAIL 'Michael'"}, () =>
         this.updateSearch(this.state.search),
       );
-    } else {
+    } else { /* custom search */
       console.log(this.state.search);
       this.updateSearch(this.state.search);
     }
   };
 
-  //    _renderSectionList = () =>{
-  //        if(this.state.sectionListReady){
-  //            return <EmailSectionList HomeScreen={this}/>;
-  //        }
-  //        else{
-  //            return null;
-  //        }
-  //
-  //    }
 
   render() {
     const {navigation} = this.props;

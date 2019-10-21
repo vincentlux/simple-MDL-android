@@ -16,6 +16,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import EmailSectionList from '../components/EmailSectionList';
 
 class ResultScreen extends Component {
+  /* configure header */
   static navigationOptions = ({navigation}) => {
     return {
       headerTitleStyle: {textAlign: 'center', alignSelf: 'center'},
@@ -49,6 +50,7 @@ class ResultScreen extends Component {
     const fileName = navigation.getParam('fileName', 'Enron Dataset');
     console.log(search);
     this.props.navigation.setParams({headerNumEmail: 'searching...'});
+    /* update the 'search' in object state with the 'search' in props.navigation; run getEmail() to update other states*/
     this.setState({search: search}, () => this.getEmail());
 
     // this.props.navigation.setParams({ numEmail: this.state.numEmail });
@@ -83,6 +85,7 @@ class ResultScreen extends Component {
           });
           return r;
         }, []);
+        /* update emailJson, sectionListReady, and numEmail here*/
         this.setState({emailJson: emailForSection}, () =>
           this.setState({
             sectionListReady: true,

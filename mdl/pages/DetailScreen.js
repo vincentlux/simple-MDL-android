@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 class DetailScreen extends Component {
+  /* configure header */
   static navigationOptions = ({navigation}) => {
     return {
       headerTitleStyle: {textAlign: 'center', alignSelf: 'center'},
@@ -34,13 +35,13 @@ class DetailScreen extends Component {
   }
   render() {
     const item = this.props.navigation.getParam('item');
-    // this renders the details of the selected email
+    /* renders the details of the selected email */
     const email = {
-      from: item.data[0], // "from" keyword
+      from: item.data[0], /* "from" keyword */
       fromAddr: item.data[1],
-      to: item.data[2], // "to" keyword
+      to: item.data[2], /* "to" keyword */
       toAddr: item.data[3],
-      contentAndClosing: item.data[4], // include main content, sign-off, and probably original emails in replying emails
+      contentAndClosing: item.data[4], /* include main content, sign-off, and probably original emails in replying emails */
     };
     return (
       <ScrollView style={styles.container}>
