@@ -103,18 +103,19 @@ class ResultScreen extends Component {
         console.log(err);
         this.setState({error: true});
         this.props.navigation.setParams({numEmail: 0, headerNumEmail: 'Error'});
+//				this.props.navigation.setParams({numEmail: 0, headerNumEmail: err});
       });
   };
 
   _renderSectionList = () => {
     if (this.state.sectionListReady) {
       // change to email sectionlist
-      // this.props.navigation.navigate('Result')
       console.log('show!');
       console.log(this.state.emailJson.length);
       return <EmailSectionList ResultScreen={this} />;
     } else {
       if (!this.state.error) {
+				/* if search works normally bur takes long time, display a spinner (activityIndicator)*/
         return (
           <View style={styles.loadingView}>
             <ActivityIndicator animating={true} size="large" color="#d9d7d7" />
@@ -124,13 +125,13 @@ class ResultScreen extends Component {
     }
   };
   render() {
-    // get query from HomeScreen
-    const {navigation} = this.props;
-    const search = navigation.getParam('search', '');
-    const fileName = navigation.getParam('fileName', 'Enron Dataset');
-    console.log('resultScreen', search);
-    // getEmail
-    return <View>{this._renderSectionList()}</View>;
+    /* get query from HomeScreen */
+//    const {navigation} = this.props;
+//    const search = navigation.getParam('search', '');
+//    const fileName = navigation.getParam('fileName', 'Enron Dataset');
+ //   console.log('resultScreen', search);
+    /* render email list*/
+	return <View>{this._renderSectionList()}</View>;
   }
 }
 
