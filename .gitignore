@@ -9,6 +9,9 @@ npm-debug.*
 web-build/
 web-report/
 
+# vscode
+.vscode
+
 # Xcode
 !**/*.xcodeproj
 !**/*.pbxproj
