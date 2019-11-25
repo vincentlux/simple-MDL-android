@@ -60,27 +60,29 @@ class ResultScreen extends Component {
   getEmail = () => {
     console.log(this.state.search);
     /* call simple here to search */
-    const query = {query: this.state.search};
+		const query = 'query=' + encodeURIComponent(this.state.search);
+		const api_url = 'https://as8vcs0ct3.execute-api.us-east-1.amazonaws.com/v1/search?';
+		const index_uri_comp = '&index=enron';
+		const query_url = api_url + query + index_uri_comp;
+		
+		console.log(query_url);
     RNFetchBlob.config({
       trusty: true,
     })
       .fetch(
-        'POST',
-        'https://mdl.unc.edu/api/simple_rn',
-        {
-          'Content-Type': 'application/json',
-        },
-        JSON.stringify(query),
-      )
+        'GET',
+				query_url,
+			)
       .then(r => r.json())
       .then(r => {
+				console.log(r);
+				console.log(r.results[0].from);
         const emailForSection = r.reduce((r, s) => {
           // r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
           r.push({
-            title: s.subject,
-            id: s.id,
-            date: s.date.substring(0, s.date.indexOf('T')),
-            data: ['From:', s.from, 'To:', s.to, s.content],
+            title: s.results.subject,
+            datetime: s.results.datetime, 
+            data: ['From:', s.results.from, 'To:', s.results.to, 'Body:', s.results.content, 'Attachment:', s.results.attachment],
           });
           return r;
         }, []);
