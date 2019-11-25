@@ -35,6 +35,10 @@ class ResultScreen extends Component {
   state = {
     search: '',
     fileName: '',
+		dataset: 'enron',
+		index: 'enron',
+		pageSize: '5',
+		pageNumber: '1',
     emailJson: '',
     numEmail: 0,
     sectionListReady: false,
@@ -59,11 +63,14 @@ class ResultScreen extends Component {
 
   getEmail = () => {
     console.log(this.state.search);
-    /* call simple here to search */
+    /* call aws api here to search */
+		const api_base_url = 'https://as8vcs0ct3.execute-api.us-east-1.amazonaws.com/v1/search?';
 		const query = 'query=' + encodeURIComponent(this.state.search);
-		const api_url = 'https://as8vcs0ct3.execute-api.us-east-1.amazonaws.com/v1/search?';
-		const index_uri_comp = '&index=enron';
-		const query_url = api_url + query + index_uri_comp;
+		const dataset_uri_comp = '&dataset=' + this.state.dataset;
+		const index_uri_comp = '&index=' + this.state.index;
+		const size_uri_comp = '&size=' + this.state.pageSize;
+		const page_uri_comp = '&page=' + this.state.pageNumber;
+		const query_url = api_base_url + query + dataset_uri_comp + index_uri_comp + size_uri_comp + page_uri_comp;
 		
 		console.log(query_url);
     RNFetchBlob.config({
@@ -86,7 +93,7 @@ class ResultScreen extends Component {
           // r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
           resp.push({
             subject: s.subject,
-            datetime: s.datetime, 
+            datetime: s.datetime.substring(0, s.datetime.indexOf('T')), 
 						from: s.from,
 						to: s.to,
 						body: s.body,
