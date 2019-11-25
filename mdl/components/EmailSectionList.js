@@ -18,9 +18,9 @@ class EmailSectionList extends Component {
           this.props.ResultScreen.props.navigation.navigate('Detail', {item: item,})
         }>
         <View style={styles.container}>
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item.subject}</Text>
           {/*add from and to here*/}
-          <Text style={styles.text}>{item.date}</Text>
+          <Text style={styles.text}>{item.datetime}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -33,7 +33,7 @@ class EmailSectionList extends Component {
         <FlatList
           data={this.props.ResultScreen.state.emailJson}
           renderItem={this._renderItem}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.uid}
         />
       </View>
     );

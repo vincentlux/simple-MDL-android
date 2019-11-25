@@ -76,21 +76,32 @@ class ResultScreen extends Component {
       .then(r => r.json())
       .then(r => {
 				console.log(r);
-				console.log(r.results[0].from);
-        const emailForSection = r.reduce((r, s) => {
+//				console.log(r.results[0].from);
+//				r.results.uid = Math.random().toString();
+				const resp = r.results;
+//				const emailForSection = {...resp, uid:Math.random().toString()};
+//				const emailForSection = r.results;
+//				const emailForSection = r.results.push(...r.results, {uid:Math.random().toString()});
+        const emailForSection = resp.reduce((resp, s) => {
           // r.push({title: s.subject, data: [s.date, 'From:',s.from, 'To:', s.to, s.content]});
-          r.push({
-            title: s.results.subject,
-            datetime: s.results.datetime, 
-            data: ['From:', s.results.from, 'To:', s.results.to, 'Body:', s.results.content, 'Attachment:', s.results.attachment],
+          resp.push({
+            subject: s.subject,
+            datetime: s.datetime, 
+						from: s.from,
+						to: s.to,
+						body: s.body,
+						attachment: s.attachment,
+						bucket: s.bucket,
+						uid: Math.random().toString(),
           });
-          return r;
+          return resp;
         }, []);
+				console.log(emailForSection);
         /* update emailJson, sectionListReady, and numEmail here*/
         this.setState({emailJson: emailForSection}, () =>
           this.setState({
             sectionListReady: true,
-            numEmail: emailForSection.length,
+            numEmail: r.total,
           }),
         );
         console.log(this.state.sectionListReady);
@@ -114,7 +125,7 @@ class ResultScreen extends Component {
       // change to email sectionlist
       console.log('show!');
       console.log(this.state.emailJson.length);
-      return <EmailSectionList ResultScreen={this} />;
+     return <EmailSectionList ResultScreen={this} />;
     } else {
       if (!this.state.error) {
 				/* if search works normally bur takes long time, display a spinner (activityIndicator)*/
