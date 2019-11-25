@@ -21,10 +21,10 @@ class DetailScreen extends Component {
       headerTitle: (
         <View style={styles.content}>
           <Text adjustsFontSizeToFit numberOfLines={3} style={styles.htitle}>
-            {navigation.getParam('item').title}
+            {navigation.getParam('item').subject}
           </Text>
           <Text adjustsFontSizeToFit numberOfLines={4} style={styles.stitle}>
-            {navigation.getParam('item').date}
+            {navigation.getParam('item').datetime}
           </Text>
         </View>
       ),
@@ -35,13 +35,18 @@ class DetailScreen extends Component {
   }
   render() {
     const item = this.props.navigation.getParam('item');
+		console.log(item);
+//		return(
+//			<ScrollView style={styles.container}>
+//			</ScrollView>
+//		)
     /* renders the details of the selected email */
     const email = {
-      from: item.data[0], /* "from" keyword */
-      fromAddr: item.data[1],
-      to: item.data[2], /* "to" keyword */
-      toAddr: item.data[3],
-      contentAndClosing: item.data[4], /* include main content, sign-off, and probably original emails in replying emails */
+			from: 'From: ', /* "from" keyword */
+      fromAddr: item.from,
+      to: 'to: ', /* "to" keyword */
+      toAddr: item.to,
+      contentAndClosing: item.body, /* include main content, sign-off, and probably original emails in replying emails */
     };
     return (
       <ScrollView style={styles.container}>
